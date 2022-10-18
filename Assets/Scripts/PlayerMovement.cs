@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    // Start is called before the first frame update
-
-    //https://www.youtube.com/watch?v=_QajrabyTJc 11:52
-
     public CharacterController characterController;
 
     public float speed = 12f;
