@@ -16,11 +16,12 @@ public class PlayerInteractions : MonoBehaviour
     {
         if (Input.GetButtonDown("Interact")) //If E is pressed check if the player is colliding with any triggers
         {
-            checkCollisions(collisions);
+            checkInteractions(collisions);
         }
+        checkCollisions(collisions);
     }
 
-    void checkCollisions(List<Collider> collisions)
+    void checkInteractions(List<Collider> collisions)
     {
         foreach (Collider collision in collisions) //Loop through all different elements being collided with
         {
@@ -40,19 +41,27 @@ public class PlayerInteractions : MonoBehaviour
         }
     }
 
+    void checkCollisions(List<Collider> collisions)
+    {
+        foreach (Collider collision in collisions)
+        {
+            if (collision.gameObject.CompareTag("Black"))
+            {
+                //Debug.Log("You are dead");
+            }
+        }
+    }
+
     void OnTriggerEnter(Collider collision) 
     {
-        if (collision.gameObject.CompareTag("Door")) 
-        {
-            collisions.Add(collision); //If entering a door trigger add that element to the list
-        }
+        collisions.Add(collision); //Add the collision to the list
     }
 
     void OnTriggerExit(Collider collision)
     {
-        if (collision.gameObject.CompareTag("Door") && collisions.Contains(collision))
+        if (collisions.Contains(collision))
         {
-            collisions.Remove(collision); //If exiting a door trigger remove that element from the list. triggerenter and exit can probably be removed of if statements
+            collisions.Remove(collision); //Remove collision from the list if its on there
         }
     }
 }

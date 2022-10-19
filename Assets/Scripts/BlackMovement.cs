@@ -4,33 +4,37 @@ using UnityEngine;
 
 public class BlackMovement : MonoBehaviour
 {
-    public GameObject player;
-    public float speed = 0.5f;
-    public float speedMultiplier = 0.3f;
-    public bool movementEnabled = false;
+    private GameObject player;
+    public float BlackSpeed = 0.5f;
+    public float BlackSpeedMultiplier = 0.3f;
+    public bool BlackMovementEnabled = false;
     private float velocity;
     // Start is called before the first frame update
     void Start()
     {
-        
+        player = GameObject.FindWithTag("Player");
     }
 
     // Update is called once per frame
     void Update()
     {
+        Vector3 playerPosition = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
 
-        Transform playerTransform;
+        transform.LookAt(player.transform);
 
-        playerTransform = player.transform;
+        transform.eulerAngles = new Vector3(0,transform.eulerAngles.y,0);
 
-        playerTransform.position = new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z);
+        velocity = BlackSpeed * Mathf.Pow(Vector3.Distance(playerPosition, transform.position) * BlackSpeedMultiplier, 2) * Time.deltaTime;
 
-        transform.LookAt(playerTransform);
-
-        velocity = speed * Mathf.Pow(Vector3.Distance(playerTransform.position, transform.position) * speedMultiplier, 2) * Time.deltaTime;
-
-        if(movementEnabled) {
-            transform.position = Vector3.MoveTowards(transform.position, playerTransform.position, velocity);
+        if(BlackMovementEnabled) {
+            this.transform.position = Vector3.MoveTowards(transform.position, playerPosition, velocity);
+        }
+    }
+    void OnTriggerEnter(Collider collision) 
+    {
+        if (collision.gameObject.CompareTag("Torch"))
+        {
+            Debug.Log("black guy dead");
         }
     }
 }
