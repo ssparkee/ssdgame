@@ -6,42 +6,41 @@ public class PlayerFlashlight : MonoBehaviour
 {
     public Material flashlightOff;
     public Material flashlightOn;
+
     public bool flashlightState = false;
-    private GameObject torchBaseLight;
+    public AudioClip torchOn;
+    public AudioClip torchOff;
     private Transform torch;
-    private Transform torchLight;
+    private Light torchSpotLight;
     private Transform playerCamera;
+    private AudioSource playerAudioSource;
 
     // Start is called before the first frame update
     void Start()
     {
-        torch = transform.Find("Torch");
-        torchBaseLight = torch.Find("TorchBase").Find("TorchBaseLight").gameObject;
         playerCamera = transform.Find("Camera");
-        torchLight = torch.Find("TorchLight");
-        torchBaseLight.GetComponent<Renderer>().material = flashlightOff;
+        torch = playerCamera.Find("Torch");
+        torchSpotLight = torch.Find("TorchLight").Find("TorchSpotLight").gameObject.GetComponent<Light>();
+        playerAudioSource = GetComponent<AudioSource>();
+
+
+        torchSpotLight.enabled = false;        
     }
 
     // Update is called once per frame
     void Update()
     {
-        Vector3 torchRotation = playerCamera.transform.rotation.eulerAngles;
-        if(torchRotation.x < 345 && torchRotation.x > 180) {
-            torchRotation.x = 345;
-        } else if(torchRotation.x > 15 && torchRotation.x < 181) {
-            torchRotation.x = 15;
-        }
-        torch.rotation = Quaternion.Euler(torchRotation);
-
         if(Input.GetButtonDown("Flashlight")) //If C is pressed toggle the flashlight state
         {
             if(!flashlightState) 
             {
-                torchBaseLight.GetComponent<Renderer>().material = flashlightOn;
+                torchSpotLight.enabled = true;
+                playerAudioSource.PlayOneShot(torchOn);        
                 flashlightState = true;
             } else
             {
-                torchBaseLight.GetComponent<Renderer>().material = flashlightOff;
+                torchSpotLight.enabled = false;   
+                playerAudioSource.PlayOneShot(torchOff);          
                 flashlightState = false;
             }
         }
