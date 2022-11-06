@@ -63,6 +63,12 @@ public class PlayerInteractions : MonoBehaviour
 
                 collisionsToRemove.Add(collision);
             }
+            if(collision.gameObject.CompareTag("GelatoTubA"))
+            {
+                Transform boxParent = collision.transform.parent;
+                
+                heldItem.setHeldItem("GelatoA", heldItem.getPlayerObject(boxParent.gameObject));
+            }
         }
         foreach(Collider collision in collisionsToRemove)
         {

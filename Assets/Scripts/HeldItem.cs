@@ -8,6 +8,8 @@ public class HeldItem : MonoBehaviour
     [SerializeField] GameObject boxPlayerObject;
     [SerializeField] GameObject box2GameObject;
     [SerializeField] GameObject box2PlayerObject;
+    [SerializeField] GameObject gelatoAPlayerObject;
+    [SerializeField] GameObject gelatoAGameObject;
     
     Dictionary<string, GameObject> heldItem = new Dictionary<string, GameObject>();
     
@@ -16,8 +18,9 @@ public class HeldItem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerObjectRef.Add(boxGameObject, boxPlayerObject);
-        playerObjectRef.Add(box2GameObject, box2PlayerObject);
+        playerObjectRef.Add(boxPlayerObject, boxGameObject);
+        playerObjectRef.Add(box2PlayerObject, box2GameObject);
+        playerObjectRef.Add(gelatoAPlayerObject, gelatoAGameObject);
     }
 
     // Update is called once per frame
@@ -42,7 +45,10 @@ public class HeldItem : MonoBehaviour
         {
             heldItem.Add(itemName, itemObject);
 
-            getGameObject(itemObject).SetActive(false);
+            if(itemName != "GelatoA")
+            {
+                getGameObject(itemObject).SetActive(false);
+            }
 
             itemObject.SetActive(true);
             //pick up the item
@@ -59,22 +65,36 @@ public class HeldItem : MonoBehaviour
                 heldGameObject.SetActive(false);
 
                 GameObject gameObject = getGameObject(heldGameObject);
-                gameObject.transform.position = transform.position;
-                gameObject.transform.rotation = transform.rotation;
-                gameObject.transform.Translate(0, 0, 2);
-                gameObject.SetActive(true);
+
+                string heldItemName = "";
+                
+                foreach (string name in heldItem.Keys)
+                {
+                    if(heldItem[name] == heldGameObject)
+                    {
+                        heldItemName = name;
+                    }
+                }
+
+                if(gameObject is object && heldItemName != "GelatoA")
+                {
+                    gameObject.transform.position = transform.position;
+                    gameObject.transform.rotation = transform.rotation;
+                    gameObject.transform.Translate(0, 0, 2);
+                    gameObject.SetActive(true);
+                }
             }
 
             heldItem.Clear();
         }
     }
 
-    public GameObject getPlayerObject(GameObject gameObject)
+    public GameObject getGameObject(GameObject gameObject)
     {
         return playerObjectRef[gameObject];
     }
 
-    public GameObject getGameObject(GameObject gameObject)
+    public GameObject getPlayerObject(GameObject gameObject)
     {
         foreach (GameObject envObject in playerObjectRef.Keys)
         {
@@ -85,4 +105,5 @@ public class HeldItem : MonoBehaviour
         }
         return null;
     }
+
 }

@@ -9,6 +9,7 @@ TagManager:
   - Torch
   - Box
   - Box2
+  - GelatoTubA
   layers:
   - Default
   - TransparentFX
