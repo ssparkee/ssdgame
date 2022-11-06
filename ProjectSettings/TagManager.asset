@@ -7,6 +7,8 @@ TagManager:
   - Door
   - Black
   - Torch
+  - Box
+  - Box2
   layers:
   - Default
   - TransparentFX

@@ -5,10 +5,13 @@ using UnityEngine;
 public class PlayerInteractions : MonoBehaviour
 {
     private List<Collider> collisions = new List<Collider>();
+
+    HeldItem heldItem;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        heldItem = GetComponent<HeldItem>();
     }
 
     // Update is called once per frame
@@ -19,10 +22,16 @@ public class PlayerInteractions : MonoBehaviour
             checkInteractions(collisions);
         }
         checkCollisions(collisions);
+        if (Input.GetButtonDown("Drop"))
+        {
+            //drop current item
+            heldItem.dropHeldItem();
+        }
     }
 
     void checkInteractions(List<Collider> collisions)
     {
+        List<Collider> collisionsToRemove = new List<Collider>();
         foreach (Collider collision in collisions) //Loop through all different elements being collided with
         {
             if (collision.gameObject.CompareTag("Door")) //If colliidng with a door
@@ -38,7 +47,28 @@ public class PlayerInteractions : MonoBehaviour
                     doorAnimator.SetBool("IsOpen", false);
                 }
             }
+            if(collision.gameObject.CompareTag("Box"))
+            {
+                Transform boxParent = collision.transform.parent;
+                
+                heldItem.setHeldItem("Box", heldItem.getPlayerObject(boxParent.gameObject));
+
+                collisionsToRemove.Add(collision);
+            }
+            if(collision.gameObject.CompareTag("Box2"))
+            {
+                Transform boxParent = collision.transform.parent;
+                
+                heldItem.setHeldItem("Box2", heldItem.getPlayerObject(boxParent.gameObject));
+
+                collisionsToRemove.Add(collision);
+            }
         }
+        foreach(Collider collision in collisionsToRemove)
+        {
+            collisions.Remove(collision);
+        }
+        collisionsToRemove.Clear();
     }
 
     void checkCollisions(List<Collider> collisions)
