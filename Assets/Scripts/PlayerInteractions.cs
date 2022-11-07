@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerInteractions : MonoBehaviour
 {
+    public Material gelatoAMaterial;
+    public Material gelatoBMaterial;
     private List<Collider> collisions = new List<Collider>();
 
     HeldItem heldItem;
@@ -29,52 +31,87 @@ public class PlayerInteractions : MonoBehaviour
         }
     }
 
+    int smallestDistance;
+
     void checkInteractions(List<Collider> collisions)
     {
+        if (collisions.Count == 0) {
+            return;
+        }
+
         List<Collider> collisionsToRemove = new List<Collider>();
-        foreach (Collider collision in collisions) //Loop through all different elements being collided with
+        
+        smallestDistance = 1000;
+
+        Collider collision = collisions[0];
+
+        foreach (Collider collision2 in collisions)
         {
-            if (collision.gameObject.CompareTag("Door")) //If colliidng with a door
+            if ((int)Vector3.Distance(transform.position * 10, collision2.transform.position * 10) < smallestDistance)
             {
-                Transform doorRef = collision.transform.parent.Find("DoorA");
-                Animator doorAnimator = doorRef.GetComponent<Animator>(); //Get the animation element of the door
-                
-                if(doorAnimator.GetBool("IsOpen") == false) //If closed open it and vice versa
-                {
-                    doorAnimator.SetBool("IsOpen", true);
-                } else
-                {
-                    doorAnimator.SetBool("IsOpen", false);
-                }
-            }
-            if(collision.gameObject.CompareTag("Box"))
-            {
-                Transform boxParent = collision.transform.parent;
-                
-                heldItem.setHeldItem("Box", heldItem.getPlayerObject(boxParent.gameObject));
-
-                collisionsToRemove.Add(collision);
-            }
-            if(collision.gameObject.CompareTag("Box2"))
-            {
-                Transform boxParent = collision.transform.parent;
-                
-                heldItem.setHeldItem("Box2", heldItem.getPlayerObject(boxParent.gameObject));
-
-                collisionsToRemove.Add(collision);
-            }
-            if(collision.gameObject.CompareTag("GelatoTubA"))
-            {
-                Transform boxParent = collision.transform.parent;
-                
-                heldItem.setHeldItem("GelatoA", heldItem.getPlayerObject(boxParent.gameObject));
+                smallestDistance = (int)Vector3.Distance(transform.position * 10, collision2.transform.position * 10);
+                collision = collision2;
             }
         }
-        foreach(Collider collision in collisionsToRemove)
+
+        if (collision.gameObject.CompareTag("Door")) //If colliidng with a door
         {
-            collisions.Remove(collision);
+            Transform doorRef = collision.transform.parent.Find("DoorA");
+            Animator doorAnimator = doorRef.GetComponent<Animator>(); //Get the animation element of the door
+            
+            if(doorAnimator.GetBool("IsOpen") == false) //If closed open it and vice versa
+            {
+                doorAnimator.SetBool("IsOpen", true);
+            } else
+            {
+                doorAnimator.SetBool("IsOpen", false);
+            }
+        } 
+        else if(collision.gameObject.CompareTag("ConeSquare") && heldItem.heldItemType == "cone")
+        {
+            
+        }
+        else if(collision.gameObject.CompareTag("Box"))
+        {
+            Transform boxParent = collision.transform.parent;
+            
+            heldItem.setHeldItem("Box", heldItem.getPlayerObject(boxParent.gameObject));
+
+            collisionsToRemove.Add(collision);
+        }
+        else if(collision.gameObject.CompareTag("Box2"))
+        {
+            Transform boxParent = collision.transform.parent;
+            
+            heldItem.setHeldItem("Box2", heldItem.getPlayerObject(boxParent.gameObject));
+
+            collisionsToRemove.Add(collision);
+        }
+        else if(collision.gameObject.CompareTag("GelatoTubA"))
+        {
+            Transform boxParent = collision.transform.parent;
+            
+            heldItem.setHeldItem("GelatoA", heldItem.getPlayerObject(boxParent.gameObject, itemType: "gelato"), gelatoMaterial: gelatoAMaterial);
+        }
+        else if(collision.gameObject.CompareTag("GelatoTubB"))
+        {
+            Transform boxParent = collision.transform.parent;
+            
+            heldItem.setHeldItem("GelatoB", heldItem.getPlayerObject(boxParent.gameObject, itemType: "gelato"), gelatoMaterial: gelatoBMaterial);
+        }
+        else if(collision.gameObject.CompareTag("Wafer"))
+        {
+            Transform boxParent = collision.transform.parent;
+            
+            heldItem.setHeldItem("Wafer", heldItem.getPlayerObject(boxParent.gameObject, itemType: "cone"));
+        }
+
+        foreach(Collider collision2 in collisionsToRemove)
+        {
+            collisions.Remove(collision2);
         }
         collisionsToRemove.Clear();
+        
     }
 
     void checkCollisions(List<Collider> collisions)

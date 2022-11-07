@@ -453,33 +453,33 @@ MonoBehaviour:
   - {x: -1, y: 0, z: 0, w: -1}
   - {x: -1, y: 0, z: 0, w: -1}
   - {x: -1, y: 0, z: 0, w: -1}
-  - {x: -0.7011824, y: 0.053132214, z: -0.7109994, w: -1}
-  - {x: -0.0069416985, y: -0.053132206, z: -0.99856335, w: -1}
-  - {x: -0.3826834, y: -0.0000002863599, z: -0.92387956, w: -1}
+  - {x: -0.70118237, y: 0.053132214, z: -0.7109995, w: -1}
+  - {x: -0.0069416976, y: -0.05313221, z: -0.99856335, w: -1}
+  - {x: -0.38268343, y: -0.00000028635992, z: -0.9238796, w: -1}
   - {x: -1, y: 0, z: 0, w: -1}
   - {x: -1, y: 0, z: 0, w: -1}
   - {x: -1, y: 0, z: 0, w: -1}
-  - {x: 0.006941698, y: 0.053132217, z: -0.99856335, w: -1}
+  - {x: 0.0069417, y: 0.053132217, z: -0.99856335, w: -1}
   - {x: 0.7011824, y: -0.053132202, z: -0.7109994, w: -1}
-  - {x: 0.38268346, y: -8.454606e-10, z: -0.92387956, w: -1}
+  - {x: 0.38268346, y: -8.454466e-10, z: -0.92387956, w: -1}
   - {x: -1, y: 0, z: 0, w: -1}
   - {x: -1, y: 0, z: 0, w: -1}
   - {x: -1, y: 0, z: 0, w: -1}
-  - {x: 0.7109994, y: 0.053132206, z: -0.7011824, w: -1}
-  - {x: 0.99856335, y: -0.053132188, z: -0.0069417623, w: -1}
-  - {x: 0.92387956, y: 0.00000028516428, z: -0.3826834, w: -1}
+  - {x: 0.7109995, y: 0.053132202, z: -0.70118237, w: -1}
+  - {x: 0.99856335, y: -0.05313219, z: -0.0069417614, w: -1}
+  - {x: 0.9238796, y: 0.0000002851643, z: -0.38268343, w: -1}
   - {x: -1, y: 0, z: 0, w: -1}
   - {x: -1, y: 0, z: 0, w: -1}
   - {x: -1, y: 0, z: 0, w: -1}
-  - {x: 0.99856335, y: 0.0531322, z: 0.0069416338, w: -1}
-  - {x: 0.71099967, y: -0.053132195, z: 0.70118225, w: -1}
+  - {x: 0.99856335, y: 0.0531322, z: 0.0069416035, w: -1}
+  - {x: 0.71099955, y: -0.0531322, z: 0.7011823, w: -1}
   - {x: 0.9238796, y: 0.00000040412863, z: 0.3826833, w: -1}
   - {x: -1, y: 0, z: 0, w: -1}
   - {x: -1, y: 0, z: 0, w: -1}
   - {x: -1, y: 0, z: 0, w: -1}
-  - {x: 0.70118254, y: 0.0531322, z: 0.71099937, w: -1}
-  - {x: 0.006941731, y: -0.05313224, z: 0.99856335, w: -1}
-  - {x: 0.3826836, y: 0.00000028635995, z: 0.92387944, w: -1}
+  - {x: 0.7011825, y: 0.0531322, z: 0.7109993, w: -1}
+  - {x: 0.006941729, y: -0.053132236, z: 0.99856335, w: -1}
+  - {x: 0.3826836, y: 0.00000028635998, z: 0.92387944, w: -1}
   - {x: -1, y: 0, z: 0, w: -1}
   - {x: -1, y: 0, z: 0, w: -1}
   - {x: -1, y: 0, z: 0, w: -1}
@@ -813,6 +813,7 @@ Transform:
   - {fileID: 8550916532902922777}
   - {fileID: 3984930076968605103}
   - {fileID: 1723789907249624517}
+  - {fileID: 2981171272934608618}
   m_Father: {fileID: 7736276699150635970}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1150,6 +1151,104 @@ Transform:
   m_Father: {fileID: 7736276699485446374}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4453491051558736469
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2981171272934608618}
+  - component: {fileID: 222373546009343234}
+  - component: {fileID: 657778148564652269}
+  - component: {fileID: 372835442160884441}
+  m_Layer: 0
+  m_Name: WaferCone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &2981171272934608618
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4453491051558736469}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.071, z: 0.178}
+  m_LocalScale: {x: 0.36688873, y: 0.36688873, z: 0.36688873}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4806276698853790041}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &222373546009343234
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4453491051558736469}
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &657778148564652269
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4453491051558736469}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: e9e9a3664cf544c4d8670943c994db56, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!136 &372835442160884441
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4453491051558736469}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5000001
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0.000000059604645, y: 0, z: 0.00000086426735}
 --- !u!1 &7736276698008200930
 GameObject:
   m_ObjectHideFlags: 0
@@ -1316,6 +1415,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df5a9b75368d0dc48817287f1392fd62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gelatoAMaterial: {fileID: 2100000, guid: e16e2013ffd5ffe448ff2ab9dd758fec, type: 2}
+  gelatoBMaterial: {fileID: 2100000, guid: 592fafb4bb0288147a89964f6906620b, type: 2}
 --- !u!114 &7736276698811960172
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1442,10 +1543,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boxGameObject: {fileID: 0}
-  boxPlayerObject: {fileID: 2000933080152644864}
   box2GameObject: {fileID: 0}
-  box2PlayerObject: {fileID: 3457474968942402669}
-  gelatoAPlayerObject: {fileID: 2889900081906873077}
+  gelatoAGameObject: {fileID: 0}
+  gelatoBGameObject: {fileID: 0}
+  heldItemName: 
+  heldItem: {fileID: 0}
+  holdingItem: 0
+  heldItemType: 
 --- !u!1 &7736276699049046202
 GameObject:
   m_ObjectHideFlags: 0

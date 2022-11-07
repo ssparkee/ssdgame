@@ -10,6 +10,9 @@ TagManager:
   - Box
   - Box2
   - GelatoTubA
+  - GelatoTubB
+  - Wafer
+  - ConeSquare
   layers:
   - Default
   - TransparentFX
