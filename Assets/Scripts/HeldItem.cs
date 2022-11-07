@@ -45,7 +45,7 @@ public class HeldItem : MonoBehaviour
         {
             heldItem.Add(itemName, itemObject);
 
-            if(itemName != "GelatoA")
+            if(!isGelato(itemName))
             {
                 getGameObject(itemObject).SetActive(false);
             }
@@ -76,7 +76,7 @@ public class HeldItem : MonoBehaviour
                     }
                 }
 
-                if(gameObject is object && heldItemName != "GelatoA")
+                if(gameObject is object && !isGelato(heldItemName))
                 {
                     gameObject.transform.position = transform.position;
                     gameObject.transform.rotation = transform.rotation;
@@ -106,4 +106,18 @@ public class HeldItem : MonoBehaviour
         return null;
     }
 
+    List<string> gelatoTypes = new List<string>(){
+        "GelatoA"
+    };
+    bool isGelato(string itemName)
+    {
+        foreach (string item in gelatoTypes) 
+        {
+            if (item == itemName) 
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }
