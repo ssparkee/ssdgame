@@ -31,8 +31,6 @@ public class PlayerInteractions : MonoBehaviour
         }
     }
 
-    int smallestDistance;
-
     void checkInteractions(List<Collider> collisions)
     {
         if (collisions.Count == 0) {
@@ -41,7 +39,7 @@ public class PlayerInteractions : MonoBehaviour
 
         List<Collider> collisionsToRemove = new List<Collider>();
         
-        smallestDistance = 1000;
+        int smallestDistance = 1000;
 
         Collider collision = collisions[0];
 
@@ -69,7 +67,7 @@ public class PlayerInteractions : MonoBehaviour
         } 
         else if(collision.gameObject.CompareTag("ConeSquare") && heldItem.heldItemType == "cone")
         {
-            
+            //Create a new gelato element on the cone square.
         }
         else if(collision.gameObject.CompareTag("Box"))
         {

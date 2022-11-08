@@ -70,7 +70,7 @@ public class HeldItem : MonoBehaviour
         holdingItem = false;
         heldItemType = null;
     }
-    public void setHeldItem(string itemName, GameObject itemObject, Material gelatoMaterial = null)
+    public void setHeldItem(string itemName, GameObject itemObject, Material gelatoMaterial = null, List<string> gelatoInfo = null)
     {
         if (holdingItem) {
             return;
