@@ -23,6 +23,7 @@ public class HeldItem : MonoBehaviour
     public GameObject heldItem = null;
     public bool holdingItem = false;
     public string heldItemType = null;
+    public Material gelatoMaterial;
 
     // Start is called before the first frame update
     void Start()
@@ -73,7 +74,7 @@ public class HeldItem : MonoBehaviour
             heldItemType = null;
         }
     }
-    public void setHeldItem(string itemName, GameObject itemObject, Material gelatoMaterial = null, List<string> gelatoInfo = null)
+    public void setHeldItem(string itemName, GameObject itemObject, Material material = null, List<string> gelatoInfo = null)
     {
         if (holdingItem) {
             return;
@@ -86,10 +87,12 @@ public class HeldItem : MonoBehaviour
         switch (heldItemType)
         {
             case "gelato":
-                if (gelatoMaterial is null) {
+                if (material is null) {
                     break;
                 }
-                itemObject.GetComponent<Renderer>().material = gelatoMaterial;
+                gelatoMaterial = material;
+                itemObject.GetComponent<Renderer>().material = material;
+                
                 itemObject.SetActive(true);
                 break; //gelato and cone might not be used
             case "box":

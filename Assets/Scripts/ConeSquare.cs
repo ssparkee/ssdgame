@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ConeSquare : MonoBehaviour
 {
-    HeldItem heldItem;
 
     List<gelato> gelatos = new List<gelato>(){
         new gelato(),
@@ -16,41 +15,13 @@ public class ConeSquare : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        heldItem = GetComponent<HeldItem>();
 
         gelatos[0].setup("A", gameObject);
-        //gelatos[1].setup("B", transform.gameObject);
+        gelatos[1].setup("B", transform.gameObject);
         //gelatos[2].setup("C", transform.gameObject);
         //gelatos[3].setup("D", transform.gameObject);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void placeCone(string coneIdentifier, string coneType)
-    {
-        switch(coneIdentifier)
-        {
-            case "A":
-                gelatos[0].enableCone(coneType);
-                return;
-            case "B":
-                gelatos[1].enableCone(coneType);
-                return;
-            case "C":
-                gelatos[2].enableCone(coneType);
-                return;
-            case "D":
-                gelatos[3].enableCone(coneType);
-                return;
-            default:
-                gelatos[0].enableCone(coneType);
-                return;
-        }
-        
         /*
         Maybe just set a cone already on the square as active. gelato hierarchy is:
 
@@ -85,6 +56,51 @@ public class ConeSquare : MonoBehaviour
         Gelato has a list of all 3 scoops. The letter of the gelato is passed in (A, B, C, D).
         With the letter gelato does searches for the gameobjects of the different scoops.
         */
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    int getIndex(string identifier)
+    {
+        switch(identifier)
+        {
+            case "A":
+                return 0;
+            case "B":
+                return 1;
+            case "C":
+                return 2;
+            case "D":
+                return 3;
+            default:
+                return -1;
+        }
+    }
+
+
+    public void placeGelato(string coneIdentifier, Material scoopMaterial, string scoopName, HeldItem heldItem)
+    {
+        int index = getIndex(coneIdentifier);
+
+        if(gelatos[index].numberOfScoops == 3) {return;}
+
+        gelatos[index].enableScoop(scoopMaterial, scoopName);
+
+        heldItem.removeHeldItem();
+    }
+
+    public void placeCone(string coneIdentifier, string coneType, HeldItem heldItem)
+    {
+        int index = getIndex(coneIdentifier);
+        
+        if(gelatos[index].hasGelato) {return;}
+
+        gelatos[index].enableCone(coneType);
+
+        heldItem.removeHeldItem();
     }
 }
 class gelato
@@ -93,6 +109,8 @@ class gelato
     GameObject gelatoConesParent;
     GameObject gelatoScoopsParent;
     GameObject gelatoCone;
+    public bool hasGelato;
+    public int numberOfScoops;
 
     string gelatoIdentifier; //String of either A, B, C or D
 
@@ -114,11 +132,16 @@ class gelato
         gelatoScoops[1].setupScoop(gelatoScoopsParent.transform.Find("Scoop" + identifier + "2").gameObject);
         gelatoScoops[2].setupScoop(gelatoScoopsParent.transform.Find("Scoop" + identifier + "3").gameObject);
 
+        numberOfScoops = 0;
         gelatoIdentifier = identifier;
+        hasGelato = false;
     }
 
     public void enableCone(string coneType)
     {
+        hasGelato = true;
+        numberOfScoops = 0;
+
         switch(coneType.ToLower())
         {
             case "wafer":
@@ -134,6 +157,13 @@ class gelato
                 gelatoCone.SetActive(true);
                 return;
         }
+    }
+
+    public void enableScoop(Material scoopMaterial, string scoopName)
+    {
+        numberOfScoops += 1;
+
+        gelatoScoops[numberOfScoops - 1].enableScoop(scoopMaterial, scoopName);
     }
 
     public void pickupCone()
@@ -163,9 +193,10 @@ class gelatoScoop
         scoopObject = gameScoopObject;
     }
 
-    public void enableScoop(Material material)
+    public void enableScoop(Material material, string name)
     {
         scoopMaterial = material;
+        scoopName = name;
 
         scoopObject.GetComponent<Renderer>().material = scoopMaterial;
         scoopObject.SetActive(true);

@@ -67,47 +67,69 @@ public class PlayerInteractions : MonoBehaviour
             {
                 doorAnimator.SetBool("IsOpen", false);
             }
-        } 
-        else if(collision.gameObject.CompareTag("GelatoA") && (heldItem.heldItemType == "cone"))
-        {
-            //Create a new gelato element on the cone square. Make sure to check that there isnt already a cone placed
-            coneSquare.placeCone("A", heldItem.heldItemName.ToLower());
-            heldItem.removeHeldItem();
         }
-        else if(collision.gameObject.CompareTag("Box"))
+        else if(collision.gameObject.CompareTag("GelatoA"))
         {
-            Transform boxParent = collision.transform.parent;
-            
-            heldItem.setHeldItem("Box", heldItem.getPlayerObject(boxParent.gameObject));
+            switch(heldItem.heldItemType.ToLower())
+            {
+                case "cone":
+                    //Create a new gelato element on the cone square. Make sure to check that there isnt already a cone placed
+                    coneSquare.placeCone("A", heldItem.heldItemName.ToLower(), heldItem);
+                    return;
+                case "gelato":
+                    coneSquare.placeGelato("A", heldItem.gelatoMaterial, heldItem.heldItemName.ToLower(), heldItem);
+                    return;
+            }
+        } else if(collision.gameObject.CompareTag("GelatoB"))
+        {
+            switch(heldItem.heldItemType.ToLower())
+            {
+                case "cone":
+                    //Create a new gelato element on the cone square. Make sure to check that there isnt already a cone placed
+                    coneSquare.placeCone("B", heldItem.heldItemName.ToLower(), heldItem);
+                    return;
+                case "gelato":
+                    coneSquare.placeGelato("B", heldItem.gelatoMaterial, heldItem.heldItemName.ToLower(), heldItem);
+                    return;
+            }
+        } else if(!heldItem.holdingItem)
+        {
+            if(collision.gameObject.CompareTag("Box"))
+            {
+                Transform boxParent = collision.transform.parent;
+                
+                heldItem.setHeldItem("Box", heldItem.getPlayerObject(boxParent.gameObject));
 
-            collisionsToRemove.Add(collision);
-        }
-        else if(collision.gameObject.CompareTag("Box2"))
-        {
-            Transform boxParent = collision.transform.parent;
-            
-            heldItem.setHeldItem("Box2", heldItem.getPlayerObject(boxParent.gameObject));
+                collisionsToRemove.Add(collision);
+            }
+            else if(collision.gameObject.CompareTag("Box2"))
+            {
+                Transform boxParent = collision.transform.parent;
+                
+                heldItem.setHeldItem("Box2", heldItem.getPlayerObject(boxParent.gameObject));
 
-            collisionsToRemove.Add(collision);
+                collisionsToRemove.Add(collision);
+            }
+            else if(collision.gameObject.CompareTag("GelatoTubA"))
+            {
+                Transform boxParent = collision.transform.parent;
+                
+                heldItem.setHeldItem("GelatoA", heldItem.getPlayerObject(boxParent.gameObject, itemType: "gelato"), material: gelatoAMaterial);
+            }
+            else if(collision.gameObject.CompareTag("GelatoTubB"))
+            {
+                Transform boxParent = collision.transform.parent;
+                
+                heldItem.setHeldItem("GelatoB", heldItem.getPlayerObject(boxParent.gameObject, itemType: "gelato"), material: gelatoBMaterial);
+            }
+            else if(collision.gameObject.CompareTag("Wafer"))
+            {
+                Transform boxParent = collision.transform.parent;
+                
+                heldItem.setHeldItem("Wafer", heldItem.getPlayerObject(boxParent.gameObject, itemType: "cone"));
+            }
         }
-        else if(collision.gameObject.CompareTag("GelatoTubA"))
-        {
-            Transform boxParent = collision.transform.parent;
-            
-            heldItem.setHeldItem("GelatoA", heldItem.getPlayerObject(boxParent.gameObject, itemType: "gelato"), gelatoMaterial: gelatoAMaterial);
-        }
-        else if(collision.gameObject.CompareTag("GelatoTubB"))
-        {
-            Transform boxParent = collision.transform.parent;
-            
-            heldItem.setHeldItem("GelatoB", heldItem.getPlayerObject(boxParent.gameObject, itemType: "gelato"), gelatoMaterial: gelatoBMaterial);
-        }
-        else if(collision.gameObject.CompareTag("Wafer"))
-        {
-            Transform boxParent = collision.transform.parent;
-            
-            heldItem.setHeldItem("Wafer", heldItem.getPlayerObject(boxParent.gameObject, itemType: "cone"));
-        }
+        
 
         foreach(Collider collision2 in collisionsToRemove)
         {
