@@ -9,11 +9,14 @@ public class PlayerInteractions : MonoBehaviour
     private List<Collider> collisions = new List<Collider>();
 
     HeldItem heldItem;
+    ConeSquare coneSquare;
+    public GameObject coneSquareMain;
 
     // Start is called before the first frame update
     void Start()
     {
         heldItem = GetComponent<HeldItem>();
+        coneSquare = coneSquareMain.GetComponent<ConeSquare>();
     }
 
     // Update is called once per frame
@@ -65,9 +68,11 @@ public class PlayerInteractions : MonoBehaviour
                 doorAnimator.SetBool("IsOpen", false);
             }
         } 
-        else if(collision.gameObject.CompareTag("ConeSquare") && heldItem.heldItemType == "cone")
+        else if(collision.gameObject.CompareTag("GelatoA") && (heldItem.heldItemType == "cone"))
         {
-            //Create a new gelato element on the cone square.
+            //Create a new gelato element on the cone square. Make sure to check that there isnt already a cone placed
+            coneSquare.placeCone("A", heldItem.heldItemName.ToLower());
+            heldItem.removeHeldItem();
         }
         else if(collision.gameObject.CompareTag("Box"))
         {

@@ -12,7 +12,8 @@ TagManager:
   - GelatoTubA
   - GelatoTubB
   - Wafer
-  - ConeSquare
+  - WaferTub
+  - GelatoA
   layers:
   - Default
   - TransparentFX

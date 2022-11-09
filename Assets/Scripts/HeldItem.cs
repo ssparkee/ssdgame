@@ -45,8 +45,6 @@ public class HeldItem : MonoBehaviour
     {
         if (holdingItem)
         {
-            heldItem.SetActive(false);
-
             switch (getItemType(heldItemName)) //If not a box, dont put the game object in front of the player
             {
                 case "box":
@@ -65,10 +63,15 @@ public class HeldItem : MonoBehaviour
     }
     public void removeHeldItem() //Different to drop held item as it does not put the box in front of the player
     {
-        heldItemName = "";
-        heldItem = null;
-        holdingItem = false;
-        heldItemType = null;
+        if (holdingItem) 
+        {
+            heldItem.SetActive(false);
+
+            heldItemName = "";
+            heldItem = null;
+            holdingItem = false;
+            heldItemType = null;
+        }
     }
     public void setHeldItem(string itemName, GameObject itemObject, Material gelatoMaterial = null, List<string> gelatoInfo = null)
     {

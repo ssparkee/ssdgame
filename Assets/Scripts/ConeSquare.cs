@@ -18,10 +18,10 @@ public class ConeSquare : MonoBehaviour
     {
         heldItem = GetComponent<HeldItem>();
 
-        gelatos[0].setup("A", transform.gameObject);
-        gelatos[1].setup("B", transform.gameObject);
-        gelatos[2].setup("C", transform.gameObject);
-        gelatos[3].setup("D", transform.gameObject);
+        gelatos[0].setup("A", gameObject);
+        //gelatos[1].setup("B", transform.gameObject);
+        //gelatos[2].setup("C", transform.gameObject);
+        //gelatos[3].setup("D", transform.gameObject);
     }
 
     // Update is called once per frame
@@ -30,7 +30,7 @@ public class ConeSquare : MonoBehaviour
         
     }
 
-    void placeCone(string coneIdentifier, string coneType)
+    public void placeCone(string coneIdentifier, string coneType)
     {
         switch(coneIdentifier)
         {
@@ -63,6 +63,7 @@ public class ConeSquare : MonoBehaviour
                     ScoopA1
                     ScoopA2
                     ScoopA3
+                GelatoColliderA
             GelatoB
                 ~~
             GelatoC
@@ -118,7 +119,7 @@ class gelato
 
     public void enableCone(string coneType)
     {
-        switch(coneType)
+        switch(coneType.ToLower())
         {
             case "wafer":
                 gelatoCone = gelatoConesParent.transform.Find("Wafer").gameObject;
@@ -142,9 +143,9 @@ class gelato
 
     public void destroyCone()
     {
-        gelatoScoopsParent.transform.Find("Scoop" + identifier + "1").gameObject.SetActive(false);
-        gelatoScoopsParent.transform.Find("Scoop" + identifier + "2").gameObject.SetActive(false);
-        gelatoScoopsParent.transform.Find("Scoop" + identifier + "3").gameObject.SetActive(false);
+        gelatoScoopsParent.transform.Find("Scoop" + gelatoIdentifier + "1").gameObject.SetActive(false);
+        gelatoScoopsParent.transform.Find("Scoop" + gelatoIdentifier + "2").gameObject.SetActive(false);
+        gelatoScoopsParent.transform.Find("Scoop" + gelatoIdentifier + "3").gameObject.SetActive(false);
         gelatoCone.SetActive(false);
 
         gelatoScoops = null;
@@ -157,9 +158,9 @@ class gelatoScoop
     Material scoopMaterial;
     GameObject scoopObject;
 
-    public void setupScoop(Gameobject gameobject)
+    public void setupScoop(GameObject gameScoopObject)
     {
-        scoopObject = gameObject;
+        scoopObject = gameScoopObject;
     }
 
     public void enableScoop(Material material)
