@@ -13,7 +13,9 @@ public class HeldItem : MonoBehaviour
     [SerializeField] GameObject gelatoAGameObject;
     [SerializeField] GameObject gelatoBGameObject;
     [SerializeField] GameObject waferGameObject;
+    [SerializeField] GameObject bowlGameObject;
     GameObject waferPlayerObject;
+    GameObject bowlPlayerObject;
     
     //Dictionary<string, GameObject> heldItem = new Dictionary<string, GameObject>();
     
@@ -34,14 +36,16 @@ public class HeldItem : MonoBehaviour
         box2PlayerObject = playerHeldItemObject.transform.Find("OtherBox").gameObject;
         gelatoPlayerObject = playerHeldItemObject.transform.Find("Gelato").gameObject;
         waferPlayerObject = playerHeldItemObject.transform.Find("Wafer").gameObject;
+        bowlPlayerObject = playerHeldItemObject.transform.Find("Bowl").gameObject;
 
         playerObjectRef.Add(boxGameObject, boxPlayerObject);
         playerObjectRef.Add(box2GameObject, box2PlayerObject);
         playerObjectRef.Add(gelatoAGameObject, gelatoPlayerObject);
         playerObjectRef.Add(gelatoBGameObject, gelatoPlayerObject);
         playerObjectRef.Add(waferGameObject, waferPlayerObject);
+        playerObjectRef.Add(bowlGameObject, bowlPlayerObject);
     }
-
+    
     public void dropHeldItem()
     {
         if (holdingItem)

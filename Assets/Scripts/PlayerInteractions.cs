@@ -54,7 +54,7 @@ public class PlayerInteractions : MonoBehaviour
                 collision = collision2;
             }
         }
-
+        //DOOR COLLISION
         if (collision.gameObject.CompareTag("Door")) //If colliidng with a door
         {
             Transform doorRef = collision.transform.parent.Find("DoorA");
@@ -68,6 +68,7 @@ public class PlayerInteractions : MonoBehaviour
                 doorAnimator.SetBool("IsOpen", false);
             }
         }
+        //GELATO TABLE COLLISION
         else if(collision.gameObject.CompareTag("GelatoA"))
         {
             switch(heldItem.heldItemType.ToLower())
@@ -92,7 +93,9 @@ public class PlayerInteractions : MonoBehaviour
                     coneSquare.placeGelato("B", heldItem.gelatoMaterial, heldItem.heldItemName.ToLower(), heldItem);
                     return;
             }
-        } else if(!heldItem.holdingItem)
+        } 
+        //ITEM COLLISIONS
+        else if(!heldItem.holdingItem)
         {
             if(collision.gameObject.CompareTag("Box"))
             {
@@ -127,6 +130,12 @@ public class PlayerInteractions : MonoBehaviour
                 Transform boxParent = collision.transform.parent;
                 
                 heldItem.setHeldItem("Wafer", heldItem.getPlayerObject(boxParent.gameObject, itemType: "cone"));
+            }
+            else if(collision.gameObject.CompareTag("Bowl"))
+            {
+                Transform boxParent = collision.transform.parent;
+                
+                heldItem.setHeldItem("Bowl", heldItem.getPlayerObject(boxParent.gameObject, itemType: "cone"));
             }
         }
         

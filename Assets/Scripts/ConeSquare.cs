@@ -96,7 +96,9 @@ public class ConeSquare : MonoBehaviour
     {
         int index = getIndex(coneIdentifier);
         
-        if(gelatos[index].hasGelato) {return;}
+        if(gelatos[index].hasGelato) {
+            return;
+        }
 
         gelatos[index].enableCone(coneType);
 
@@ -146,10 +148,12 @@ class gelato
         {
             case "wafer":
                 gelatoCone = gelatoConesParent.transform.Find("Wafer").gameObject;
+                gelatoScoopsParent.transform.position = gelatoScoopsParent.transform.parent.TransformPoint(0,0,0);
                 gelatoCone.SetActive(true);
                 return;
             case "bowl":
                 gelatoCone = gelatoConesParent.transform.Find("Bowl").gameObject;
+                gelatoScoopsParent.transform.position = gelatoScoopsParent.transform.parent.TransformPoint(0,-0.09f,0);
                 gelatoCone.SetActive(true);
                 return;
             default:

@@ -15,6 +15,7 @@ TagManager:
   - WaferTub
   - GelatoA
   - GelatoB
+  - Bowl
   layers:
   - Default
   - TransparentFX
