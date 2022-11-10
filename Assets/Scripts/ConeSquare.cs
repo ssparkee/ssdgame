@@ -206,3 +206,48 @@ class gelatoScoop
         scoopObject.SetActive(true);
     }
 }
+
+/*
+The customer needs to be able to request a gelato.
+
+What happens is that:
+They have a string list - either made beforehand or can be randomly made on creation
+This string is shown to the character in some form.
+
+The character then has to make a gelato with the requested scoops, cone, etc.
+When the ice cream is finished the player has to press some sort of button (maybe a bell) to indicate to the 
+customer the ice cream is made.
+
+Then the customer does a check by getting the scoopName and coneType etc. and matching that to the string 
+list of the requested gelato.
+
+
+*/
+
+/*class playerGelato
+{
+    bool isCone = false;
+    string coneType;
+    bool isScoop = false;
+    string scoopType;
+    Texture scoopTexture;
+
+    public void setup(string gelatoType, Texture texture = null)
+    {
+        switch (gelatoType)
+        {
+            case "wafer":
+                isCone = true;
+                coneType = gelatoType;
+                return;
+            case "bowl":
+                isCone = true;
+                coneType = gelatoType;
+                return;
+            default:
+                isScoop = false;
+                coneType = "scoop";
+                return;
+        }
+    }
+}*/
