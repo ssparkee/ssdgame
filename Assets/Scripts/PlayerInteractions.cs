@@ -29,11 +29,34 @@ public class PlayerInteractions : MonoBehaviour
         checkCollisions(collisions);
         if (Input.GetButtonDown("Drop"))
         {
-            //drop current item
+            dropItem(collisions);
+        }
+    }
+
+    void dropItem(List<Collider> collisions)
+    {
+        Collider collision = checkClosestCollider(collisions);
+
+
+        if(collision.gameObject.CompareTag("GelatoA"))
+        {
+            if(!coneSquare.removeGelato("A"))
+            {
+                heldItem.dropHeldItem();
+            }
+        } else if(collision.gameObject.CompareTag("GelatoB"))
+        {
+            if(!coneSquare.removeGelato("B"))
+            {
+                heldItem.dropHeldItem();
+            }
+        } else
+        {
             heldItem.dropHeldItem();
         }
     }
 
+    
     void checkInteractions(List<Collider> collisions)
     {
         if (collisions.Count == 0) {
@@ -42,18 +65,8 @@ public class PlayerInteractions : MonoBehaviour
 
         List<Collider> collisionsToRemove = new List<Collider>();
         
-        int smallestDistance = 1000;
-
-        Collider collision = collisions[0];
-
-        foreach (Collider collision2 in collisions)
-        {
-            if ((int)Vector3.Distance(transform.position * 10, collision2.transform.position * 10) < smallestDistance)
-            {
-                smallestDistance = (int)Vector3.Distance(transform.position * 10, collision2.transform.position * 10);
-                collision = collision2;
-            }
-        }
+        Collider collision = checkClosestCollider(collisions);
+        
         //DOOR COLLISION
         if (collision.gameObject.CompareTag("Door")) //If colliidng with a door
         {
@@ -67,6 +80,14 @@ public class PlayerInteractions : MonoBehaviour
             {
                 doorAnimator.SetBool("IsOpen", false);
             }
+        } else if (collision.gameObject.CompareTag("GelatoButton"))
+        {
+            Transform buttonRef = collision.transform.parent.Find("GelatoButton");
+            Animator buttonAnimator = buttonRef.GetComponent<Animator>();
+
+            buttonAnimator.Play("GelatoButtonPress");
+
+            coneSquare.buttonPressed();
         }
         //GELATO TABLE COLLISION
         else if(collision.gameObject.CompareTag("GelatoA"))
@@ -146,6 +167,23 @@ public class PlayerInteractions : MonoBehaviour
         }
         collisionsToRemove.Clear();
         
+    }
+
+    Collider checkClosestCollider(List<Collider> collisions)
+    {
+        int smallestDistance = 1000;
+
+        Collider collision = collisions[0];
+
+        foreach (Collider collision2 in collisions)
+        {
+            if ((int)Vector3.Distance(transform.position * 10, collision2.transform.position * 10) < smallestDistance)
+            {
+                smallestDistance = (int)Vector3.Distance(transform.position * 10, collision2.transform.position * 10);
+                collision = collision2;
+            }
+        }
+        return collision;
     }
 
     void checkCollisions(List<Collider> collisions)

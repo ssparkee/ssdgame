@@ -12,9 +12,29 @@ public class ConeSquare : MonoBehaviour
         new gelato()
     };
 
+    public List<string> gelatosToMake;
+    /*
+    This list is set by the customer at the front of the line.
+
+    When the button is pressed this string is checked to match to the current gelatos.
+
+    Each gelato is one string.
+
+    string format is 
+
+    cone:scoop1:scoop2:scoop3
+    If there is not 3 scoops do something like
+    cone:scoop1:scoop2
+
+    ScoopA - Green
+    ScoopB - Red
+    */
+
     // Start is called before the first frame update
     void Start()
     {
+        
+        gelatosToMake.Add("wafer:scoopA:scoopB:scoopA");
 
         gelatos[0].setup("A", gameObject);
         gelatos[1].setup("B", transform.gameObject);
@@ -80,6 +100,32 @@ public class ConeSquare : MonoBehaviour
         }
     }
 
+    public void buttonPressed()
+    {
+        //Get the customer currently at the front. If there is none still delete the ice cream maybe
+        
+
+        foreach (gelato finishedGelato in gelatos)
+        {
+            if (finishedGelato.hasGelato) {
+                string[] scoopNames = finishedGelato.scoopStringNames();
+                string coneName = finishedGelato.coneName;
+
+            }
+        }
+    }
+
+    bool checkForGelatoMatch(List<string> gelatosToMake, string[] scoopNames, string coneName)
+    {
+        foreach (string gelatoToMake in gelatosToMake)
+        {
+            string[] gelatoString = gelatoToMake.Split(gelatoToMake, char.Parse(":"));
+            if (gelatoString[0] == coneName) {
+                //contunue
+            }
+        }
+        return false;//fix later
+    }
 
     public void placeGelato(string coneIdentifier, Material scoopMaterial, string scoopName, HeldItem heldItem)
     {
@@ -104,6 +150,18 @@ public class ConeSquare : MonoBehaviour
 
         heldItem.removeHeldItem();
     }
+
+    public bool removeGelato(string coneIdentifier)
+    {
+        int index = getIndex(coneIdentifier);
+
+        if (gelatos[index].hasGelato)
+        {
+            gelatos[index].destroyCone();
+            return true;
+        }
+        return false;
+    }
 }
 class gelato
 {
@@ -111,15 +169,18 @@ class gelato
     GameObject gelatoConesParent;
     GameObject gelatoScoopsParent;
     GameObject gelatoCone;
+    GameObject coneSquare;
     public bool hasGelato;
     public int numberOfScoops;
+    public string coneName;
 
     string gelatoIdentifier; //String of either A, B, C or D
 
     List<gelatoScoop> gelatoScoops;
 
-    public void setup(string identifier, GameObject coneSquare) //Pass in the identifier (ABCD) and this.
+    public void setup(string identifier, GameObject conesquare) //Pass in the identifier (ABCD) and this.
     {
+        coneSquare = conesquare;
         gelatoParent = coneSquare.transform.Find("Gelato" + identifier).gameObject;
         gelatoConesParent = gelatoParent.transform.Find("GelatoCones" + identifier).gameObject;
         gelatoScoopsParent = gelatoParent.transform.Find("GelatoScoops" + identifier).gameObject;
@@ -139,10 +200,26 @@ class gelato
         hasGelato = false;
     }
 
+    public string[] scoopStringNames()
+    {
+        string[] scoopNames = new string[3];
+        int i = 0;
+        foreach (gelatoScoop scoop in gelatoScoops)
+        {
+            if(scoop.scoopName != "")
+            {
+                scoopNames[i] = scoop.scoopName.ToLower();
+            }
+            i += 1;
+        }
+        return scoopNames;
+    }
+
     public void enableCone(string coneType)
     {
         hasGelato = true;
         numberOfScoops = 0;
+        coneName = coneType.ToLower();
 
         switch(coneType.ToLower())
         {
@@ -182,13 +259,13 @@ class gelato
         gelatoScoopsParent.transform.Find("Scoop" + gelatoIdentifier + "3").gameObject.SetActive(false);
         gelatoCone.SetActive(false);
 
-        gelatoScoops = null;
+        setup(gelatoIdentifier, coneSquare);
     }
 }
 
 class gelatoScoop
 {
-    string scoopName;
+    public string scoopName = "";
     Material scoopMaterial;
     GameObject scoopObject;
 
