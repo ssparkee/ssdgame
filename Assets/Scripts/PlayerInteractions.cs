@@ -37,22 +37,26 @@ public class PlayerInteractions : MonoBehaviour
     {
         Collider collision = checkClosestCollider(collisions);
 
-
-        if(collision.gameObject.CompareTag("GelatoA"))
-        {
-            if(!coneSquare.removeGelato("A"))
-            {
-                heldItem.dropHeldItem();
-            }
-        } else if(collision.gameObject.CompareTag("GelatoB"))
-        {
-            if(!coneSquare.removeGelato("B"))
-            {
-                heldItem.dropHeldItem();
-            }
-        } else
+        if(collision is null)
         {
             heldItem.dropHeldItem();
+        } else {
+            if(collision.gameObject.CompareTag("GelatoA"))
+            {
+                if(!coneSquare.removeGelato("A"))
+                {
+                    heldItem.dropHeldItem();
+                }
+            } else if(collision.gameObject.CompareTag("GelatoB"))
+            {
+                if(!coneSquare.removeGelato("B"))
+                {
+                    heldItem.dropHeldItem();
+                }
+            } else
+            {
+                heldItem.dropHeldItem();
+            }
         }
     }
 
@@ -90,7 +94,7 @@ public class PlayerInteractions : MonoBehaviour
             coneSquare.buttonPressed();
         }
         //GELATO TABLE COLLISION
-        else if(collision.gameObject.CompareTag("GelatoA"))
+        else if(collision.gameObject.CompareTag("GelatoA") && heldItem.holdingItem)
         {
             switch(heldItem.heldItemType.ToLower())
             {
@@ -102,7 +106,7 @@ public class PlayerInteractions : MonoBehaviour
                     coneSquare.placeGelato("A", heldItem.gelatoMaterial, heldItem.heldItemName.ToLower(), heldItem);
                     return;
             }
-        } else if(collision.gameObject.CompareTag("GelatoB"))
+        } else if(collision.gameObject.CompareTag("GelatoB") && heldItem.holdingItem)
         {
             switch(heldItem.heldItemType.ToLower())
             {
@@ -173,7 +177,13 @@ public class PlayerInteractions : MonoBehaviour
     {
         int smallestDistance = 1000;
 
-        Collider collision = collisions[0];
+        Collider collision;
+        try
+        {
+            collision = collisions[0];
+        } catch {
+            return null;
+        }
 
         foreach (Collider collision2 in collisions)
         {

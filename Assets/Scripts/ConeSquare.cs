@@ -26,15 +26,16 @@ public class ConeSquare : MonoBehaviour
     If there is not 3 scoops do something like
     cone:scoop1:scoop2
 
-    ScoopA - Green
-    ScoopB - Red
+    gelatoa - Green
+    gelatob - Red
     */
 
     // Start is called before the first frame update
     void Start()
     {
         
-        gelatosToMake.Add("wafer:scoopA:scoopB:scoopA");
+        gelatosToMake.Add("wafer:gelatoa:gelatob:gealtoa");
+        gelatosToMake.Add("wafer:gelatob:gelatob");
 
         gelatos[0].setup("A", gameObject);
         gelatos[1].setup("B", transform.gameObject);
@@ -103,28 +104,93 @@ public class ConeSquare : MonoBehaviour
     public void buttonPressed()
     {
         //Get the customer currently at the front. If there is none still delete the ice cream maybe
-        
-
         foreach (gelato finishedGelato in gelatos)
         {
             if (finishedGelato.hasGelato) {
-                string[] scoopNames = finishedGelato.scoopStringNames();
+                string[] scoopNames = setStringListLength(finishedGelato.scoopStringNames(), 3);
                 string coneName = finishedGelato.coneName;
 
+                (bool, string) gealtoMatch = checkForGelatoMatch(gelatosToMake, scoopNames, coneName);
+                if(gealtoMatch.Item1)
+                {
+                    //gelato do match
+                    Debug.Log("does match");
+                    //One bug to note. If there is only one ice cream on the table but multiple ones to make, it still returns true
+                    gelatosToMake.Remove(gealtoMatch.Item2);
+                    
+                } else {
+                    Debug.Log("does not match");
+                    
+                    //gelato does not match. Do something
+                }
             }
+        }
+
+        //all gelatos do match. Do something
+        removeAllGelatos();
+        Debug.Log("removed them all");
+    }
+
+    string[] setStringListLength(string[] stringList, int length)
+    {
+        if (stringList.Length == length)
+        {
+            return stringList;
+        }
+        string[] stringList2 = new string[length];
+        int i = 0;
+        foreach (string string1 in stringList)
+        {
+            stringList2[i] = string1;
+
+            i += 1;
+
+            if (i == length)
+            {
+                return stringList2;
+            }
+        }
+        return stringList2;
+    }
+
+    void logList(string[] stringList, string index = "")
+    {
+        foreach (string stringToLog in stringList)
+        {
+            Debug.Log(index + stringToLog);
         }
     }
 
-    bool checkForGelatoMatch(List<string> gelatosToMake, string[] scoopNames, string coneName)
+    (bool, string) checkForGelatoMatch(List<string> gelatosToMake, string[] scoopNames, string coneName)
     {
+        (bool, string) gelatoMatches = (true, null);
         foreach (string gelatoToMake in gelatosToMake)
         {
-            string[] gelatoString = gelatoToMake.Split(gelatoToMake, char.Parse(":"));
-            if (gelatoString[0] == coneName) {
-                //contunue
+            string[] gelatoString = setStringListLength(gelatoToMake.Split(":"), 4);
+            //Debug this in case there are errors
+
+            logList(gelatoString, index:"gesltosn - ");
+            logList(scoopNames, index:"fkeajfkajkl - ");
+
+            if (gelatoString[0] == coneName) { //If the cone is the right one loop through all scoops and make sure they all match
+                int numberOfScoops = 2;
+
+                gelatoMatches = (true, gelatoToMake);
+
+                for (int i = 0; i <= numberOfScoops; i++)
+                {
+                    if(gelatoString[i + 1] != scoopNames[i]) 
+                    {
+                        gelatoMatches = (false, null);
+                    }
+                }
+            }
+            if(gelatoMatches.Item1)
+            {
+                return gelatoMatches;
             }
         }
-        return false;//fix later
+        return gelatoMatches;
     }
 
     public void placeGelato(string coneIdentifier, Material scoopMaterial, string scoopName, HeldItem heldItem)
@@ -161,6 +227,17 @@ public class ConeSquare : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    public void removeAllGelatos()
+    {
+        foreach (gelato gelato in gelatos)
+        {
+            if(gelato.hasGelato)
+            {
+                gelato.destroyCone();
+            }
+        }
     }
 }
 class gelato
