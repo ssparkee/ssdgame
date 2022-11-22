@@ -34,7 +34,7 @@ public class ConeSquare : MonoBehaviour
     void Start()
     {
         
-        gelatosToMake.Add("wafer:gelatoa:gelatob:gealtoa");
+        gelatosToMake.Add("wafer:gelatoa:gelatob:gelatoa");
         gelatosToMake.Add("wafer:gelatob:gelatob");
 
         gelatos[0].setup("A", gameObject);
@@ -103,6 +103,7 @@ public class ConeSquare : MonoBehaviour
 
     public void buttonPressed()
     {
+        bool allMatch = true;
         //Get the customer currently at the front. If there is none still delete the ice cream maybe
         foreach (gelato finishedGelato in gelatos)
         {
@@ -114,22 +115,36 @@ public class ConeSquare : MonoBehaviour
                 if(gealtoMatch.Item1)
                 {
                     //gelato do match
-                    Debug.Log("does match");
+                    //Debug.Log("does match");
                     //One bug to note. If there is only one ice cream on the table but multiple ones to make, it still returns true
                     gelatosToMake.Remove(gealtoMatch.Item2);
                     
                 } else {
-                    Debug.Log("does not match");
-                    
+                    //Debug.Log("does not match");
+                    allMatch = false;
                     //gelato does not match. Do something
                 }
             }
         }
-
+        if (gelatosToMake.Count != 0)
+        {
+            allMatch = false;
+        }
         //all gelatos do match. Do something
         removeAllGelatos();
+        gelatosToMake = new List<string>();
+
         Debug.Log("removed them all");
+
+        if(allMatch)
+        {
+            Debug.Log("All match!");
+        } else {
+            Debug.Log("dont match");
+        }
     }
+
+    
 
     string[] setStringListLength(string[] stringList, int length)
     {
@@ -169,8 +184,8 @@ public class ConeSquare : MonoBehaviour
             string[] gelatoString = setStringListLength(gelatoToMake.Split(":"), 4);
             //Debug this in case there are errors
 
-            logList(gelatoString, index:"gesltosn - ");
-            logList(scoopNames, index:"fkeajfkajkl - ");
+            //logList(gelatoString, index:"gesltosn - ");
+            //logList(scoopNames, index:"fkeajfkajkl - ");
 
             if (gelatoString[0] == coneName) { //If the cone is the right one loop through all scoops and make sure they all match
                 int numberOfScoops = 2;
@@ -181,12 +196,14 @@ public class ConeSquare : MonoBehaviour
                 {
                     if(gelatoString[i + 1] != scoopNames[i]) 
                     {
+                        //Debug.Log(gelatoString[i+1] + " is not " + scoopNames[i]);
                         gelatoMatches = (false, null);
                     }
                 }
             }
             if(gelatoMatches.Item1)
             {
+                //Debug.Log("1. feiafea It mateches the ststeis");
                 return gelatoMatches;
             }
         }
