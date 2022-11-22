@@ -32,11 +32,12 @@ public class HeldItem : MonoBehaviour
     {
         playerHeldItemObject = transform.Find("Camera").Find("HeldItem").gameObject;
 
-        boxPlayerObject = playerHeldItemObject.transform.Find("Box").gameObject;
-        box2PlayerObject = playerHeldItemObject.transform.Find("OtherBox").gameObject;
-        gelatoPlayerObject = playerHeldItemObject.transform.Find("Gelato").gameObject;
-        waferPlayerObject = playerHeldItemObject.transform.Find("Wafer").gameObject;
-        bowlPlayerObject = playerHeldItemObject.transform.Find("Bowl").gameObject;
+
+        boxPlayerObject = getPlayerObject("Box");
+        box2PlayerObject = getPlayerObject("OtherBox");
+        gelatoPlayerObject = getPlayerObject("Gelato");
+        waferPlayerObject = getPlayerObject("Wafer");
+        bowlPlayerObject = getPlayerObject("Bowl");
 
         playerObjectRef.Add(boxGameObject, boxPlayerObject);
         playerObjectRef.Add(box2GameObject, box2PlayerObject);
@@ -45,7 +46,17 @@ public class HeldItem : MonoBehaviour
         playerObjectRef.Add(waferGameObject, waferPlayerObject);
         playerObjectRef.Add(bowlGameObject, bowlPlayerObject);
     }
-    
+
+    GameObject getPlayerObject(string name)
+    {
+        try{
+            return playerHeldItemObject.transform.Find(name).gameObject;
+        } catch {
+            Debug.Log("Could not find gameobject " + name);
+            return null;
+        }
+    }   
+
     public void dropHeldItem()
     {
         if (holdingItem)

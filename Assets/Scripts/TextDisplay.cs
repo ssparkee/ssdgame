@@ -7,8 +7,10 @@ using TMPro;
 public class TextDisplay : MonoBehaviour
 {
     public GameObject textObject;
+    public GameObject panelObject;
     
     TextMeshProUGUI textGui;
+    RectTransform panelTransform;
 
     public double displayInterval = 0.01;
     public double lineInterval = 0.5;
@@ -16,8 +18,9 @@ public class TextDisplay : MonoBehaviour
     void Start()
     {
         textGui = textObject.GetComponent<TextMeshProUGUI>();
+        panelTransform = panelObject.GetComponent<RectTransform>();
 
-        displayLine("hello this is a test hey jamie does this look good thearjekatlrek atkleajtkjtkleajtkejakl");
+        displayLine("Hey can i I get a wafer cone with red scoop and green scoop Hey can i I get a wafer cone with red scoop and green scoop Hey can i I get a wafer cone with red scoop and green scoop");
     }
 
     // Update is called once per frame
@@ -62,6 +65,13 @@ public class TextDisplay : MonoBehaviour
     IEnumerator display(string line, float interval)
     {
         textGui.text = "";
+        Debug.Log(line.Length);
+        if(line.Length >= 120)
+        {
+            panelTransform.offsetMin = new Vector2(panelTransform.offsetMin.x, 520);
+        } else {
+            panelTransform.offsetMin = new Vector2(panelTransform.offsetMin.x, 540);
+        }
         foreach (char character in line)
         {
             textGui.text += character;

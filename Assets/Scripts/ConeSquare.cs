@@ -264,7 +264,7 @@ class gelato
     GameObject gelatoScoopsParent;
     GameObject gelatoCone;
     GameObject coneSquare;
-    public bool hasGelato;
+    public bool hasGelato = false;
     public int numberOfScoops;
     public string coneName;
 
@@ -336,6 +336,10 @@ class gelato
 
     public void enableScoop(Material scoopMaterial, string scoopName)
     {
+        if (!hasGelato)
+        {
+            return;
+        }
         numberOfScoops += 1;
 
         gelatoScoops[numberOfScoops - 1].enableScoop(scoopMaterial, scoopName);
