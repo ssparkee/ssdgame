@@ -7,9 +7,7 @@ public class BlackMovement : MonoBehaviour
     private GameObject player;
     private PlayerFlashlight playerFlashlight;
     private Rigidbody blackBody;
-    public GameObject blackCharacter;
-    public float BlackSpeed = 0.5f;
-    public float BlackSpeedMultiplier = 0.3f;
+    public float BlackSpeed = 30f;
     public bool BlackMovementEnabled = false;
     private bool flashedByPlayer = false;
     private float velocity;
@@ -31,6 +29,7 @@ public class BlackMovement : MonoBehaviour
         if (other.gameObject.CompareTag("Torch"))
         {
             flashedByPlayer = true;
+            Debug.Log("Damn, I'm dead");
         }
     }
 
@@ -63,11 +62,11 @@ public class BlackMovement : MonoBehaviour
     {
         BlackMovementEnabled = false;
         gameObject.SetActive(false);
-        goToStart();
+        goToStart(new Vector3(0,0,0));
     }
 
-    public void goToStart()
+    public void goToStart(Vector3 startLocation)
     {
-        transform.localPosition = new Vector3(0,0,0);
+        transform.localPosition = startLocation;
     }
 }

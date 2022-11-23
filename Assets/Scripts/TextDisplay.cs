@@ -65,12 +65,12 @@ public class TextDisplay : MonoBehaviour
     IEnumerator display(string line, float interval)
     {
         textGui.text = "";
-        Debug.Log(line.Length);
+
         if(line.Length >= 120)
         {
-            panelTransform.offsetMin = new Vector2(panelTransform.offsetMin.x, 1030); //520, 1030
+            panelTransform.offsetMin = new Vector2(panelTransform.offsetMin.x, 520); //520, 1030
         } else {
-            panelTransform.offsetMin = new Vector2(panelTransform.offsetMin.x, 1000); //540, 1010
+            panelTransform.offsetMin = new Vector2(panelTransform.offsetMin.x, 540); //540, 1010
         }
         foreach (char character in line)
         {

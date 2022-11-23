@@ -15,6 +15,9 @@ public class ConeSquare : MonoBehaviour
     TextDisplay textManager;
 
     public List<string> gelatosToMake;
+
+    public GameObject customerManagerGameObject;
+    CustomerManager customerManager;
     /*
     This list is set by the customer at the front of the line.
 
@@ -44,6 +47,8 @@ public class ConeSquare : MonoBehaviour
         gelatos[1].setup("B", transform.gameObject);
         //gelatos[2].setup("C", transform.gameObject);
         //gelatos[3].setup("D", transform.gameObject);
+
+        customerManager = customerManagerGameObject.GetComponent<CustomerManager>();
     }
 
         /*
@@ -133,7 +138,7 @@ public class ConeSquare : MonoBehaviour
         {
             allMatch = false;
         }
-        //all gelatos do match. Do something
+
         removeAllGelatos();
         gelatosToMake = new List<string>();
 
@@ -142,9 +147,12 @@ public class ConeSquare : MonoBehaviour
         if(allMatch)
         {
             Debug.Log("All match!");
+           
+
         } else {
             Debug.Log("dont match");
         }
+        customerManager.removeFrontCustomer(allMatch);
     }
 
     
