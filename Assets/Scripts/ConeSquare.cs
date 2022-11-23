@@ -12,6 +12,8 @@ public class ConeSquare : MonoBehaviour
         new gelato()
     };
 
+    TextDisplay textManager;
+
     public List<string> gelatosToMake;
     /*
     This list is set by the customer at the front of the line.
@@ -33,7 +35,8 @@ public class ConeSquare : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        //TODO: Setup the text manager (idk if its done here actually or if its done in the npc one.) 
+
         gelatosToMake.Add("wafer:gelatoa:gelatob:gelatoa");
         gelatosToMake.Add("wafer:gelatob:gelatob");
 
@@ -395,34 +398,4 @@ customer the ice cream is made.
 
 Then the customer does a check by getting the scoopName and coneType etc. and matching that to the string 
 list of the requested gelato.
-
-
 */
-
-/*class playerGelato
-{
-    bool isCone = false;
-    string coneType;
-    bool isScoop = false;
-    string scoopType;
-    Texture scoopTexture;
-
-    public void setup(string gelatoType, Texture texture = null)
-    {
-        switch (gelatoType)
-        {
-            case "wafer":
-                isCone = true;
-                coneType = gelatoType;
-                return;
-            case "bowl":
-                isCone = true;
-                coneType = gelatoType;
-                return;
-            default:
-                isScoop = false;
-                coneType = "scoop";
-                return;
-        }
-    }
-}*/

@@ -68,9 +68,9 @@ public class TextDisplay : MonoBehaviour
         Debug.Log(line.Length);
         if(line.Length >= 120)
         {
-            panelTransform.offsetMin = new Vector2(panelTransform.offsetMin.x, 520);
+            panelTransform.offsetMin = new Vector2(panelTransform.offsetMin.x, 1030); //520, 1030
         } else {
-            panelTransform.offsetMin = new Vector2(panelTransform.offsetMin.x, 540);
+            panelTransform.offsetMin = new Vector2(panelTransform.offsetMin.x, 1000); //540, 1010
         }
         foreach (char character in line)
         {
