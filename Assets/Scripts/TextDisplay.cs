@@ -14,13 +14,15 @@ public class TextDisplay : MonoBehaviour
 
     public double displayInterval = 0.01;
     public double lineInterval = 0.5;
+
+    public bool displayingText = false;
     // Start is called before the first frame update
     void Start()
     {
         textGui = textObject.GetComponent<TextMeshProUGUI>();
         panelTransform = panelObject.GetComponent<RectTransform>();
 
-        displayLine("Hey can i I get a wafer cone with red scoop and green scoop Hey can i I get a wafer cone with red scoop and green scoop Hey can i I get a wafer cone with red scoop and green scoop");
+        //displayLine("Hey can i I get a wafer cone with red scoop and green scoop Hey can i I get a wafer cone with red scoop and green scoop Hey can i I get a wafer cone with red scoop and green scoop");
     }
 
     // Update is called once per frame
@@ -36,7 +38,18 @@ public class TextDisplay : MonoBehaviour
             interval = displayInterval;
         }
         
-        StartCoroutine(display(line, (float)interval));
+
+        waitForDisplay(line, (float)interval);
+    }
+
+    IEnumerator waitForDisplay(string line, float interval)
+    {
+        while (displayingText == true)
+        {
+            yield return null;
+        }
+
+        StartCoroutine(display(line, interval));
     }
 
     public void displayMultipleLines(string[] lines, double interval = -1, double timeBetweenLines = -1)
@@ -68,15 +81,18 @@ public class TextDisplay : MonoBehaviour
 
         if(line.Length >= 120)
         {
-            panelTransform.offsetMin = new Vector2(panelTransform.offsetMin.x, 520); //520, 1030
+            panelTransform.offsetMin = new Vector2(panelTransform.offsetMin.x, 1030); //520, 1030
         } else {
-            panelTransform.offsetMin = new Vector2(panelTransform.offsetMin.x, 540); //540, 1010
+            panelTransform.offsetMin = new Vector2(panelTransform.offsetMin.x, 1010); //540, 1010
         }
         foreach (char character in line)
         {
             textGui.text += character;
             yield return new WaitForSeconds(interval);
         }
+        yield return new WaitForSeconds(3);
+
+        displayingText = false;
         yield break;
     }
 
