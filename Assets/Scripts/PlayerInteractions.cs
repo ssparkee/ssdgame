@@ -96,27 +96,29 @@ public class PlayerInteractions : MonoBehaviour
         //GELATO TABLE COLLISION
         else if(collision.gameObject.CompareTag("GelatoA") && heldItem.holdingItem)
         {
-            switch(heldItem.heldItemType.ToLower())
+            if (heldItem.heldItemType.ToLower() == "cone")
             {
-                case "cone":
-                    //Create a new gelato element on the cone square. Make sure to check that there isnt already a cone placed
-                    coneSquare.placeCone("A", heldItem.heldItemName.ToLower(), heldItem);
-                    return;
-                case "gelato":
-                    coneSquare.placeGelato("A", heldItem.gelatoMaterial, heldItem.heldItemName.ToLower(), heldItem);
-                    return;
+                //Create a new gelato element on the cone square. Make sure to check that there isnt already a cone placed
+                coneSquare.placeCone("A", heldItem.heldItemName.ToLower(), heldItem);
+                return;
+            } 
+            if (heldItem.heldItemType.ToLower() == "gelato" && coneSquare.squareHasCone("A"))
+            {
+                coneSquare.placeGelato("A", heldItem.gelatoMaterial, heldItem.heldItemName.ToLower(), heldItem);
+                return;
             }
         } else if(collision.gameObject.CompareTag("GelatoB") && heldItem.holdingItem)
         {
-            switch(heldItem.heldItemType.ToLower())
+            if (heldItem.heldItemType.ToLower() == "cone")
             {
-                case "cone":
-                    //Create a new gelato element on the cone square. Make sure to check that there isnt already a cone placed
-                    coneSquare.placeCone("B", heldItem.heldItemName.ToLower(), heldItem);
-                    return;
-                case "gelato":
-                    coneSquare.placeGelato("B", heldItem.gelatoMaterial, heldItem.heldItemName.ToLower(), heldItem);
-                    return;
+                //Create a new gelato element on the cone square. Make sure to check that there isnt already a cone placed
+                coneSquare.placeCone("B", heldItem.heldItemName.ToLower(), heldItem);
+                return;
+            } 
+            if (heldItem.heldItemType.ToLower() == "gelato" && coneSquare.squareHasCone("B"))
+            {
+                coneSquare.placeGelato("B", heldItem.gelatoMaterial, heldItem.heldItemName.ToLower(), heldItem);
+                return;
             }
         } 
         //ITEM COLLISIONS

@@ -38,10 +38,9 @@ public class ConeSquare : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //TODO: Setup the text manager (idk if its done here actually or if its done in the npc one.) 
 
-        gelatosToMake.Add("wafer:gelatoa:gelatob:gelatoa");
-        gelatosToMake.Add("wafer:gelatob:gelatob");
+        //gelatosToMake.Add("wafer:gelatoa:gelatob:gelatoa");
+        //gelatosToMake.Add("wafer:gelatob:gelatob");
 
         gelatos[0].setup("A", gameObject);
         gelatos[1].setup("B", transform.gameObject);
@@ -92,7 +91,7 @@ public class ConeSquare : MonoBehaviour
         
     }
 
-    int getIndex(string identifier)
+    public int getIndex(string identifier)
     {
         switch(identifier)
         {
@@ -111,6 +110,8 @@ public class ConeSquare : MonoBehaviour
 
     public void buttonPressed()
     {
+        gelatosToMake = customerManager.getGelatosToMake();
+
         bool allMatch = true;
         //Get the customer currently at the front. If there is none still delete the ice cream maybe
         foreach (gelato finishedGelato in gelatos)
@@ -155,6 +156,10 @@ public class ConeSquare : MonoBehaviour
         customerManager.removeFrontCustomer(allMatch);
     }
 
+    public bool squareHasCone(string identifier)
+    {
+        return gelatos[getIndex(identifier)].hasGelato;
+    }
     
 
     string[] setStringListLength(string[] stringList, int length)
@@ -268,7 +273,7 @@ public class ConeSquare : MonoBehaviour
         }
     }
 }
-class gelato
+public class gelato
 {
     GameObject gelatoParent;
     GameObject gelatoConesParent;
@@ -320,6 +325,7 @@ class gelato
         return scoopNames;
     }
 
+    
     public void enableCone(string coneType)
     {
         hasGelato = true;

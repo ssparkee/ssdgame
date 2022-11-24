@@ -39,17 +39,24 @@ public class TextDisplay : MonoBehaviour
         }
         
 
-        waitForDisplay(line, (float)interval);
+        StartCoroutine(waitForDisplay(line, (float)interval));
     }
 
     IEnumerator waitForDisplay(string line, float interval)
     {
-        while (displayingText == true)
+        if (displayingText)
         {
-            yield return null;
+            yield return new WaitUntil(notDisplaying);
         }
 
         StartCoroutine(display(line, interval));
+
+        yield break;
+    }
+
+    bool notDisplaying()
+    {
+        return !displayingText;
     }
 
     public void displayMultipleLines(string[] lines, double interval = -1, double timeBetweenLines = -1)
@@ -77,20 +84,21 @@ public class TextDisplay : MonoBehaviour
     }
     IEnumerator display(string line, float interval)
     {
+        displayingText = true;
         textGui.text = "";
 
         if(line.Length >= 120)
         {
-            panelTransform.offsetMin = new Vector2(panelTransform.offsetMin.x, 1030); //520, 1030
+            panelTransform.offsetMin = new Vector2(panelTransform.offsetMin.x, 520); //520, 1030
         } else {
-            panelTransform.offsetMin = new Vector2(panelTransform.offsetMin.x, 1010); //540, 1010
+            panelTransform.offsetMin = new Vector2(panelTransform.offsetMin.x, 540); //540, 1010
         }
         foreach (char character in line)
         {
             textGui.text += character;
             yield return new WaitForSeconds(interval);
         }
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(1);
 
         displayingText = false;
         yield break;

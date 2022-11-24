@@ -9,11 +9,14 @@ public class CustomerManager : MonoBehaviour
     public int customerChance = 700;
     public GameObject textManager; //TODO: ASSIGN THIS
     TextDisplay textdisplay;
+    public GameObject moneyManagerGameObject;
+    MoneyManager moneyManager;
 
     // Start is called before the first frame update
     void Start()
     {
         textdisplay = textManager.GetComponent<TextDisplay>();
+        moneyManager = moneyManagerGameObject.GetComponent<MoneyManager>();
     }
 
     // Update is called once per frame
@@ -53,17 +56,19 @@ public class CustomerManager : MonoBehaviour
 
     public void removeFrontCustomer(bool correctIceCream)
     {
-        currentCustomers.Remove(currentCustomers[0]);
-
         if (correctIceCream) //TODO: good job bad job
         {
             //good job
             textdisplay.displayLine("Thanks!");
+            moneyManager.addMoney();
 
         } else {
             //bad job
             textdisplay.displayLine("What the hell? This isn't what I asked for!");
         }
+        currentCustomers[0].leaveStore();
+
+        currentCustomers.Remove(currentCustomers[0]);
     }
 
     public List<string> getGelatosToMake()
@@ -138,21 +143,21 @@ public class CustomerManager : MonoBehaviour
         i = Random.Range(1, 2);
         if (i == 1)
         {
-            scoop1 = "scoopA";
+            scoop1 = "gelatoa";
         }
         else if (i == 2)
         {
-            scoop1 = "scoopB";
+            scoop1 = "gelatob";
         }
 
         i = Random.Range(1, 3);
         if (i == 1)
         {
-            scoop2 = "scoopA";
+            scoop2 = "gelatoa";
         }
         else if (i == 2)
         {
-            scoop2 = "scoopB";
+            scoop2 = "gelatob";
         }
         else
         {
@@ -162,11 +167,11 @@ public class CustomerManager : MonoBehaviour
         i = Random.Range(1, 3);
         if (i == 1)
         {
-            scoop3 = "scoopA";
+            scoop3 = "gelatoa";
         }
         else if (i == 2)
         {
-            scoop3 = "scoopB";
+            scoop3 = "gelatob";
         }
         else
         {
@@ -179,6 +184,7 @@ public class CustomerManager : MonoBehaviour
 public class Customer
 {
     public GameObject customerGameObject;
+    Animator customerAnimator;
     public List<string> gelatoString;
 
     public bool currentlyMoving;
@@ -195,14 +201,23 @@ public class Customer
         textdisplay = text;
         currentlyMoving = false;
         hasOrdered = false;
+
+        customerGameObject.transform.RotateAround(customerGameObject.transform.position, customerGameObject.transform.up, 180f);
+
+        customerAnimator = customerGameObject.GetComponent<Animator>();
     }
     public void moveForwards(Vector3 target, int position)
     {
         positionInQueue = position;
         currentlyMoving = true;
+
+        customerAnimator.SetBool("IsWalking", true);
+
         if (customerGameObject.transform.localPosition == target)
         {
             currentlyMoving = false;
+
+            customerAnimator.SetBool("IsWalking", false);
 
             if (!hasOrdered && (target == new Vector3(-29.82f, 0, -822f)))
             {
@@ -213,13 +228,60 @@ public class Customer
             return;
         }
 
+        
+
         customerGameObject.transform.localPosition = Vector3.MoveTowards(customerGameObject.transform.localPosition, target, Time.deltaTime * 100);
+    }
+    public void leaveStore()
+    {
+        customerGameObject.transform.localPosition = Vector3.MoveTowards(customerGameObject.transform.localPosition, new Vector3(0,0,0), Time.deltaTime * 100);
+
+        customerGameObject.SetActive(false);
     }
     string createString(List<string> list)
     {
         if (list.Count == 1)
         {
-            return $"Can i get a {list[0]}";
+            string[] stringFormatted = list[0].Split(":");
+            switch (stringFormatted.Length)
+            {
+                case 2:
+                    return $"Can i get a {stringFormatted[1]} on a {stringFormatted[0]}";
+                case 3:
+                    return $"Can i get a {stringFormatted[1]}, {stringFormatted[2]} on a {stringFormatted[0]}";
+                case 4:
+                    return $"Can i get a {stringFormatted[1]}, {stringFormatted[2]} and a {stringFormatted[3]} on a {stringFormatted[0]}";
+            }
+            
+        } if (list.Count == 2)
+        {
+            string[] stringFormatted1 = list[0].Split(":");
+            string[] stringFormatted2 = list[1].Split(":");
+            
+            string stringToReturn = "";
+            if (stringFormatted1.Length == 2)
+            {
+                stringToReturn = $"Can i get a {stringFormatted1[1]} on a {stringFormatted1[0]}";
+            } else if (stringFormatted1.Length == 3)
+            {
+                stringToReturn = $"Can i get a {stringFormatted1[1]}, {stringFormatted1[2]} on a {stringFormatted1[0]}";
+            } else if (stringFormatted1.Length == 4)
+            {
+                stringToReturn = $"Can i get a {stringFormatted1[1]}, {stringFormatted1[2]} and a {stringFormatted1[3]} on a {stringFormatted1[0]}";
+            }
+
+            if (stringFormatted2.Length == 2)
+            {
+                stringToReturn += $" and a {stringFormatted2[1]} on a {stringFormatted2[0]}";
+            } else if (stringFormatted2.Length == 3)
+            {
+                stringToReturn += $" and a {stringFormatted2[1]}, {stringFormatted2[2]} on a {stringFormatted2[0]}";
+            } else if (stringFormatted2.Length == 4)
+            {
+                stringToReturn += $" and a {stringFormatted2[1]}, {stringFormatted2[2]} and a {stringFormatted2[3]} on a {stringFormatted2[0]}";
+            } 
+
+            return stringToReturn;
         }
         return $"Can I get a {list[0]} and a {list[1]}";
     }

@@ -1,14 +1,10 @@
 TODO:
-* Make a script for the customer. This will have a random ice cream generated
-  and will walk up to the store.
 * Make a tutorial. It will be on a different scene and will be some dialogue 
   with like 2 customers that have predefined ice creams. This is how we get the 
   victory scene.
-* Make it so if you mess up the order enough they will get fucking angy and kill you
-* Add coins, pretty easy, just have the customer add 1 to the counter when you do an
-  order good. Probably have like 2 coins already in it from the tutorial
 * Add a title scene. Will be a seperate scene with a button to do tutorial and one to
   do main game.
+* Get the correct models off sladic
 * If you have time, set all the images and see if you can display a video on the screen.
   Also do the VHS filter. Also do voice lines
 

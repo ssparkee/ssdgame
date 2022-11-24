@@ -6,7 +6,7 @@ using TMPro;
 public class MoneyManager : MonoBehaviour
 {
     public GameObject moneyTextObject;
-    public int money = 0;
+    public int money = 2;
     TextMeshProUGUI moneyText;
     
     // Start is called before the first frame update
@@ -23,7 +23,7 @@ public class MoneyManager : MonoBehaviour
         
     }
 
-    void addMoney(int addition = 1)
+    public void addMoney(int addition = 1)
     {
         money += addition;
         moneyText.text = money.ToString();
