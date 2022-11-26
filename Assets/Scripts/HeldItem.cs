@@ -12,6 +12,7 @@ public class HeldItem : MonoBehaviour
     GameObject gelatoPlayerObject;
     [SerializeField] GameObject gelatoAGameObject;
     [SerializeField] GameObject gelatoBGameObject;
+    [SerializeField] GameObject gelatoCGameObject;
     [SerializeField] GameObject waferGameObject;
     [SerializeField] GameObject bowlGameObject;
     GameObject waferPlayerObject;
@@ -39,10 +40,11 @@ public class HeldItem : MonoBehaviour
         waferPlayerObject = getPlayerObject("Wafer");
         bowlPlayerObject = getPlayerObject("Bowl");
 
-        playerObjectRef.Add(boxGameObject, boxPlayerObject);
-        playerObjectRef.Add(box2GameObject, box2PlayerObject);
+        //playerObjectRef.Add(boxGameObject, boxPlayerObject);
+        //playerObjectRef.Add(box2GameObject, box2PlayerObject);
         playerObjectRef.Add(gelatoAGameObject, gelatoPlayerObject);
         playerObjectRef.Add(gelatoBGameObject, gelatoPlayerObject);
+        playerObjectRef.Add(gelatoCGameObject, gelatoPlayerObject);
         playerObjectRef.Add(waferGameObject, waferPlayerObject);
         playerObjectRef.Add(bowlGameObject, bowlPlayerObject);
     }
@@ -126,7 +128,8 @@ public class HeldItem : MonoBehaviour
 
     List<string> gelatoTypes = new List<string>(){
         "GelatoA",
-        "GelatoB"
+        "GelatoB",
+        "GelatoC"
     };
     List<string> coneTypes = new List<string>(){
         "Bowl",

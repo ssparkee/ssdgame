@@ -17,6 +17,8 @@ TagManager:
   - GelatoB
   - Bowl
   - GelatoButton
+  - GelatoTubC
+  - GelatoC
   layers:
   - Default
   - TransparentFX

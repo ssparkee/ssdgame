@@ -13,6 +13,7 @@ public class PlayerFlashlight : MonoBehaviour
     private Transform torch;
     private Light torchSpotLight;
     private Transform playerCamera;
+    private GameObject flashlightModel;
     private AudioSource playerAudioSource;
 
     // Start is called before the first frame update
@@ -22,9 +23,11 @@ public class PlayerFlashlight : MonoBehaviour
         torch = playerCamera.Find("Torch");
         torchSpotLight = torch.Find("TorchLight").Find("TorchSpotLight").gameObject.GetComponent<Light>();
         playerAudioSource = GetComponent<AudioSource>();
+        flashlightModel = torch.Find("Flashlight").gameObject;
 
-
-        torchSpotLight.enabled = false;        
+        
+        torchSpotLight.enabled = false;   
+        flashlightModel.SetActive(false);     
     }
 
     // Update is called once per frame
@@ -34,11 +37,13 @@ public class PlayerFlashlight : MonoBehaviour
         {
             if(!flashlightState) 
             {
+                flashlightModel.SetActive(true);
                 torchSpotLight.enabled = true;
                 playerAudioSource.PlayOneShot(torchOn);        
                 flashlightState = true;
             } else
             {
+                flashlightModel.SetActive(false);
                 torchSpotLight.enabled = false;   
                 playerAudioSource.PlayOneShot(torchOff);          
                 flashlightState = false;

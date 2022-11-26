@@ -50,6 +50,7 @@ public class TextDisplay : MonoBehaviour
         }
 
         StartCoroutine(display(line, interval));
+        
 
         yield break;
     }
@@ -87,18 +88,23 @@ public class TextDisplay : MonoBehaviour
         displayingText = true;
         textGui.text = "";
 
-        if(line.Length >= 120)
+        /*if(line.Length >= 120)
         {
-            panelTransform.offsetMin = new Vector2(panelTransform.offsetMin.x, 520); //520, 1030
+            panelTransform.offsetMin = new Vector2(panelTransform.offsetMin.x, 800); //520, 1030
         } else {
-            panelTransform.offsetMin = new Vector2(panelTransform.offsetMin.x, 540); //540, 1010
-        }
+            panelTransform.offsetMin = new Vector2(panelTransform.offsetMin.x, 1010); //540, 1010
+        }*/
         foreach (char character in line)
         {
             textGui.text += character;
             yield return new WaitForSeconds(interval);
         }
         yield return new WaitForSeconds(1);
+
+        if (textGui.text.StartsWith("Thanks") || textGui.text.StartsWith("What the"))
+        {
+            textGui.text = "";
+        }
 
         displayingText = false;
         yield break;

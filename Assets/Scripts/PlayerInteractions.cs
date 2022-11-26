@@ -6,6 +6,7 @@ public class PlayerInteractions : MonoBehaviour
 {
     public Material gelatoAMaterial;
     public Material gelatoBMaterial;
+    public Material gelatoCMaterial;
     private List<Collider> collisions = new List<Collider>();
 
     HeldItem heldItem;
@@ -50,6 +51,12 @@ public class PlayerInteractions : MonoBehaviour
             } else if(collision.gameObject.CompareTag("GelatoB"))
             {
                 if(!coneSquare.removeGelato("B"))
+                {
+                    heldItem.dropHeldItem();
+                }
+            } else if (collision.gameObject.CompareTag("GelatoC"))
+            {
+                if (!coneSquare.removeGelato("C"))
                 {
                     heldItem.dropHeldItem();
                 }
@@ -120,7 +127,20 @@ public class PlayerInteractions : MonoBehaviour
                 coneSquare.placeGelato("B", heldItem.gelatoMaterial, heldItem.heldItemName.ToLower(), heldItem);
                 return;
             }
-        } 
+        } else if (collision.gameObject.CompareTag("GelatoC") && heldItem.holdingItem)
+        {
+            if (heldItem.heldItemType.ToLower() == "cone")
+            {
+                //Create a new gelato element on the cone square. Make sure to check that there isnt already a cone placed
+                coneSquare.placeCone("C", heldItem.heldItemName.ToLower(), heldItem);
+                return;
+            }
+            if (heldItem.heldItemType.ToLower() == "gelato" && coneSquare.squareHasCone("C"))
+            {
+                coneSquare.placeGelato("C", heldItem.gelatoMaterial, heldItem.heldItemName.ToLower(), heldItem);
+                return;
+            }
+        }
         //ITEM COLLISIONS
         else if(!heldItem.holdingItem)
         {
@@ -151,6 +171,12 @@ public class PlayerInteractions : MonoBehaviour
                 Transform boxParent = collision.transform.parent;
                 
                 heldItem.setHeldItem("GelatoB", heldItem.getPlayerObject(boxParent.gameObject, itemType: "gelato"), material: gelatoBMaterial);
+            }
+            else if (collision.gameObject.CompareTag("GelatoTubC"))
+            {
+                Transform boxParent = collision.transform.parent;
+
+                heldItem.setHeldItem("GelatoC", heldItem.getPlayerObject(boxParent.gameObject, itemType: "gelato"), material: gelatoCMaterial);
             }
             else if(collision.gameObject.CompareTag("Wafer"))
             {

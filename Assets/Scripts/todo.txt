@@ -2,11 +2,19 @@ TODO:
 * Make a tutorial. It will be on a different scene and will be some dialogue 
   with like 2 customers that have predefined ice creams. This is how we get the 
   victory scene.
-* Add a title scene. Will be a seperate scene with a button to do tutorial and one to
-  do main game.
 * Get the correct models off sladic
 * If you have time, set all the images and see if you can display a video on the screen.
   Also do the VHS filter. Also do voice lines
 
 * Victory will display after doing the tutorial, as the main game can not be won.
 * Loss will be when you die in main game and be pretty cursed.
+
+
+Level Designs: You will need to use MS Paint or similar and create your plan for your levels that show the 
+level layout and the placement of enemies and collectibles. You will also need a design/wireframe for the 
+winner screen and the game over screen.
+Screenshots: Screenshots of the creation of your game. Include all key sections of the design. E.g. Start of 
+level, mid-level creation, finalised level etc.
+Video recording: A video recording of you playing through your game from start to finish, showing all 
+applicable aspects of the game. Also include the code in your recording.
+Game flow diagram: Shows the flow of the game from the beginning to the end.

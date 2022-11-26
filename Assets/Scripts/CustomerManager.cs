@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CustomerManager : MonoBehaviour
 {
@@ -24,7 +25,7 @@ public class CustomerManager : MonoBehaviour
     {
         moveCustomersUp();
 
-        if(Random.Range(0, customerChance) == customerChance - 1)
+        if(Random.Range(0, customerChance) == customerChance - 1 && SceneManager.GetActiveScene().buildIndex == 1)
         {
             addCustomer();
         }
@@ -261,29 +262,41 @@ public class Customer
             string stringToReturn = "";
             if (stringFormatted1.Length == 2)
             {
-                stringToReturn = $"Can i get a {stringFormatted1[1]} on a {stringFormatted1[0]}";
+                stringToReturn = $"Can i get a {getScoopName(stringFormatted1[1])} on a {stringFormatted1[0]}";
             } else if (stringFormatted1.Length == 3)
             {
-                stringToReturn = $"Can i get a {stringFormatted1[1]}, {stringFormatted1[2]} on a {stringFormatted1[0]}";
+                stringToReturn = $"Can i get a {getScoopName(stringFormatted1[1])}, {getScoopName(stringFormatted1[1])} on a {stringFormatted1[0]}";
             } else if (stringFormatted1.Length == 4)
             {
-                stringToReturn = $"Can i get a {stringFormatted1[1]}, {stringFormatted1[2]} and a {stringFormatted1[3]} on a {stringFormatted1[0]}";
+                stringToReturn = $"Can i get a {getScoopName(stringFormatted1[1])}, {getScoopName(stringFormatted1[2])} and a {getScoopName(stringFormatted1[3])} on a {stringFormatted1[0]}";
             }
 
             if (stringFormatted2.Length == 2)
             {
-                stringToReturn += $" and a {stringFormatted2[1]} on a {stringFormatted2[0]}";
+                stringToReturn += $" and a {getScoopName(stringFormatted2[1])} on a {stringFormatted2[0]}";
             } else if (stringFormatted2.Length == 3)
             {
-                stringToReturn += $" and a {stringFormatted2[1]}, {stringFormatted2[2]} on a {stringFormatted2[0]}";
+                stringToReturn += $" and a {getScoopName(stringFormatted2[1])}, {getScoopName(stringFormatted2[2])} on a {stringFormatted2[0]}";
             } else if (stringFormatted2.Length == 4)
             {
-                stringToReturn += $" and a {stringFormatted2[1]}, {stringFormatted2[2]} and a {stringFormatted2[3]} on a {stringFormatted2[0]}";
+                stringToReturn += $" and a {getScoopName(stringFormatted2[1])}, {getScoopName(stringFormatted2[2])} and a {getScoopName(stringFormatted2[3])} on a {stringFormatted2[0]}";
             } 
 
             return stringToReturn;
         }
         return $"Can I get a {list[0]} and a {list[1]}";
+    }
+    string getScoopName(string scoop)
+    {
+        switch (scoop)
+        {
+            case "gelatoa":
+                return "mint scoop";
+            case "gelatob":
+                return "strawberry scoop";
+            default:
+                return scoop;
+        }
     }
 }
 /*

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BlackController : MonoBehaviour
 {
@@ -17,7 +18,7 @@ public class BlackController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Random.Range(0, spawnChance) == spawnChance - 1)
+        if (Random.Range(0, spawnChance) == spawnChance - 1 && SceneManager.GetActiveScene().buildIndex == 1)
         {
             blackScript.BlackMovementEnabled = true;
             blackMan.SetActive(true);
