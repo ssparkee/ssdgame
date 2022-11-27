@@ -31,7 +31,10 @@ public class BlackController : MonoBehaviour
     public bool lightsFlickering;
     
     public GameObject player;
-    AudioListener audioListener;
+    AudioSource audioListener;
+    public AudioClip whisper;
+    public AudioClip knock;
+    public AudioClip flickering;
 
     void Start()
     {
@@ -39,34 +42,46 @@ public class BlackController : MonoBehaviour
         blackMan = transform.Find("character").gameObject;
         blackScript = blackMan.GetComponent<BlackMovement>();
         moneyManager = moneyManagerObject.GetComponent<MoneyManager>();
-        audioListener = player.GetComponent<AudioListener>();
+        audioListener = player.GetComponent<AudioSource>();
         lightsFlickering = false;
 
         smoothQueue = new Queue<float>(smoothing);
+
+        audioListener.loop = true;
+        audioListener.clip = flickering;
+        audioListener.Play();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Random.Range(0, spawnChance) == spawnChance - 1 && SceneManager.GetActiveScene().buildIndex == 1)
-        {
-            blackScript.BlackMovementEnabled = true;
-            blackMan.SetActive(true);
-            blackScript.goToStart(randomStartPoint());
-        }
-        if (blackScript.BlackMovementEnabled)
-        {
-            blackScript.move();
-        }
 
         if (moneyManager.money >= 5)
         {
+            if(lightsFlickering == false)
+            {
+                audioListener.PlayOneShot(knock);
+            }
             lightsFlickering = true;
         }
         if (lightsFlickering)
         {
             flickerLights();
         }
+
+        if (Random.Range(0, spawnChance) == spawnChance - 1 && SceneManager.GetActiveScene().buildIndex == 1 && lightsFlickering == false && !blackScript.gameObject.activeSelf)
+        {
+            blackScript.BlackMovementEnabled = true;
+            blackMan.SetActive(true);
+            blackScript.goToStart(randomStartPoint());
+            audioListener.PlayOneShot(whisper);
+        }
+        if (blackScript.BlackMovementEnabled)
+        {
+            blackScript.move();
+        }
+
+        
     }
 
     void flickerLights()

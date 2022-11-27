@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerInteractions : MonoBehaviour
 {
@@ -237,6 +238,10 @@ public class PlayerInteractions : MonoBehaviour
             if (collision.gameObject.CompareTag("BenchCheck"))
             {
                 enteredBench = true;
+            }
+            if (collision.gameObject.CompareTag("BadDoor"))
+            {
+                SceneManager.LoadScene(4);
             }
         }
     }

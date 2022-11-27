@@ -20,6 +20,7 @@ TagManager:
   - GelatoTubC
   - GelatoC
   - BenchCheck
+  - BadDoor
   layers:
   - Default
   - TransparentFX

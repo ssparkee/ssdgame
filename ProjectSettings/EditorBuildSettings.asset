@@ -16,5 +16,8 @@ EditorBuildSettings:
     guid: 8bbac2f4f14950e429624805574fe017
   - enabled: 1
     path: Assets/Scenes/Victory Menu.unity
+    guid: 2bb4d31cf58dbf3408855383e9aade45
+  - enabled: 1
+    path: Assets/Scenes/Death Menu.unity
     guid: 9171b6e03ceed1f49967c66a71fa1b8e
   m_configObjects: {}

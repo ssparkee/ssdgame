@@ -5,10 +5,20 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    public GameObject cameraObject;
+    public AudioClip jumpscare;
+    AudioSource audioListener;
     // Start is called before the first frame update
     void Start()
     {
+        audioListener = cameraObject.GetComponent<AudioSource>();
         Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
+        if(SceneManager.GetActiveScene().buildIndex == 4)
+        {
+            audioListener.PlayOneShot(jumpscare);
+        }
     }
 
     // Update is called once per frame
