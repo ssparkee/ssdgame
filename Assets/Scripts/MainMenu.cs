@@ -10,13 +10,13 @@ public class MainMenu : MonoBehaviour
     AudioSource audioListener;
     // Start is called before the first frame update
     void Start()
-    {
-        audioListener = cameraObject.GetComponent<AudioSource>();
+    {        
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
         if(SceneManager.GetActiveScene().buildIndex == 4)
         {
+            audioListener = cameraObject.GetComponent<AudioSource>();
             audioListener.PlayOneShot(jumpscare);
         }
     }
