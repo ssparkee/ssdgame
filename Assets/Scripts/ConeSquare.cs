@@ -5,7 +5,7 @@ using UnityEngine;
 public class ConeSquare : MonoBehaviour
 {
 
-    List<gelato> gelatos = new List<gelato>(){
+    public List<gelato> gelatos = new List<gelato>(){
         new gelato(),
         new gelato(),
         new gelato(),
@@ -286,7 +286,7 @@ public class gelato
 
     string gelatoIdentifier; //String of either A, B, C or D
 
-    List<gelatoScoop> gelatoScoops;
+    public List<gelatoScoop> gelatoScoops;
 
     public void setup(string identifier, GameObject conesquare) //Pass in the identifier (ABCD) and this.
     {
@@ -336,12 +336,12 @@ public class gelato
         {
             case "wafer":
                 gelatoCone = gelatoConesParent.transform.Find("Wafer").gameObject;
-                gelatoScoopsParent.transform.position = gelatoScoopsParent.transform.parent.TransformPoint(0,0,0);
+                gelatoScoopsParent.transform.position = gelatoScoopsParent.transform.parent.TransformPoint(0,0.0308f,0);
                 gelatoCone.SetActive(true);
                 return;
             case "bowl":
                 gelatoCone = gelatoConesParent.transform.Find("Bowl").gameObject;
-                gelatoScoopsParent.transform.position = gelatoScoopsParent.transform.parent.TransformPoint(0,-0.09f,0);
+                gelatoScoopsParent.transform.position = gelatoScoopsParent.transform.parent.TransformPoint(-0.0036f,-0.1085f,0);
                 gelatoCone.SetActive(true);
                 return;
             default:
@@ -378,7 +378,7 @@ public class gelato
     }
 }
 
-class gelatoScoop
+public class gelatoScoop
 {
     public string scoopName = "";
     Material scoopMaterial;

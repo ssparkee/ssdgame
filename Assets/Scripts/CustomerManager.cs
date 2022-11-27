@@ -41,14 +41,14 @@ public class CustomerManager : MonoBehaviour
         }
     }
 
-    void addCustomer()
+    public void addCustomer(bool onlyOne = false)
     {
         if (currentCustomers.Count >= 4)
         {
             return;
         }
         Customer i = new Customer();
-        i.setup(generateGelato(), null, Instantiate(customerPrefab, transform.position, Quaternion.identity), textdisplay);
+        i.setup(generateGelato(onlyOne), null, Instantiate(customerPrefab, transform.position, Quaternion.identity), textdisplay);
         i.customerGameObject.transform.parent = transform;
         currentCustomers.Add(i);
 
@@ -98,15 +98,22 @@ public class CustomerManager : MonoBehaviour
         }
     }
 
-    List<string> generateGelato()
+    List<string> generateGelato(bool onlyOne)
     {
         //Random.Range(0,10) returns a number from 0-9 (inclusive, exclusive)
         List<string> gelatoString = new List<string>();
-        for (int x = 0; x <= Random.Range(0,2); x++)
+        if (onlyOne)
         {
             gelatoString.Add(generateGelatoString());
         }
-
+        else
+        {
+            for (int x = 0; x <= Random.Range(0,2); x++)
+            {
+                gelatoString.Add(generateGelatoString());
+            }
+        }
+        
         //printList(gelatoString);
         return gelatoString;
         //TODO: test wether this works. Does it do a full thing or nah?
@@ -124,10 +131,10 @@ public class CustomerManager : MonoBehaviour
 
     string generateGelatoString()
     {
-        string cone;
-        string scoop1 = "";
-        string scoop2 = "";
-        string scoop3 = "";
+        string cone = "wafer";
+        string scoop1 = "gelatoa";
+        string scoop2 = "gelatoa";
+        string scoop3 = "gelatoa";
 
         int i = 1;
 
@@ -141,7 +148,7 @@ public class CustomerManager : MonoBehaviour
             cone = "bowl";
         }
 
-        i = Random.Range(1, 2);
+        i = Random.Range(1, 4);
         if (i == 1)
         {
             scoop1 = "gelatoa";
@@ -150,8 +157,14 @@ public class CustomerManager : MonoBehaviour
         {
             scoop1 = "gelatob";
         }
+        else if (i == 3)
+        {
+            scoop1 = "gelatoc";
+        } else {
+            scoop1 = "gelatoa";
+        }
 
-        i = Random.Range(1, 3);
+        i = Random.Range(1, 5);
         if (i == 1)
         {
             scoop2 = "gelatoa";
@@ -160,12 +173,16 @@ public class CustomerManager : MonoBehaviour
         {
             scoop2 = "gelatob";
         }
+        else if (i == 3)
+        {
+            scoop1 = "gelatoc";
+        }
         else
         {
             return $"{cone}:{scoop1}";
         }
 
-        i = Random.Range(1, 3);
+        i = Random.Range(1, 5);
         if (i == 1)
         {
             scoop3 = "gelatoa";
@@ -173,6 +190,10 @@ public class CustomerManager : MonoBehaviour
         else if (i == 2)
         {
             scoop3 = "gelatob";
+        }
+        else if (i == 3)
+        {
+            scoop1 = "gelatoc";
         }
         else
         {
@@ -247,11 +268,11 @@ public class Customer
             switch (stringFormatted.Length)
             {
                 case 2:
-                    return $"Can i get a {stringFormatted[1]} on a {stringFormatted[0]}";
+                    return $"Can i get a {getScoopName(stringFormatted[1])} on a {getScoopName(stringFormatted[0])}";
                 case 3:
-                    return $"Can i get a {stringFormatted[1]}, {stringFormatted[2]} on a {stringFormatted[0]}";
+                    return $"Can i get a {getScoopName(stringFormatted[1])} and a {getScoopName(stringFormatted[2])} on a {getScoopName(stringFormatted[0])}";
                 case 4:
-                    return $"Can i get a {stringFormatted[1]}, {stringFormatted[2]} and a {stringFormatted[3]} on a {stringFormatted[0]}";
+                    return $"Can i get a {getScoopName(stringFormatted[1])}, {getScoopName(stringFormatted[2])} and a {getScoopName(stringFormatted[3])} on a {getScoopName(stringFormatted[0])}";
             }
             
         } if (list.Count == 2)
@@ -265,7 +286,7 @@ public class Customer
                 stringToReturn = $"Can i get a {getScoopName(stringFormatted1[1])} on a {stringFormatted1[0]}";
             } else if (stringFormatted1.Length == 3)
             {
-                stringToReturn = $"Can i get a {getScoopName(stringFormatted1[1])}, {getScoopName(stringFormatted1[1])} on a {stringFormatted1[0]}";
+                stringToReturn = $"Can i get a {getScoopName(stringFormatted1[1])} and a {getScoopName(stringFormatted1[2])} on a {stringFormatted1[0]}";
             } else if (stringFormatted1.Length == 4)
             {
                 stringToReturn = $"Can i get a {getScoopName(stringFormatted1[1])}, {getScoopName(stringFormatted1[2])} and a {getScoopName(stringFormatted1[3])} on a {stringFormatted1[0]}";
@@ -273,13 +294,13 @@ public class Customer
 
             if (stringFormatted2.Length == 2)
             {
-                stringToReturn += $" and a {getScoopName(stringFormatted2[1])} on a {stringFormatted2[0]}";
+                stringToReturn += $" as well as a {getScoopName(stringFormatted2[1])} on a {stringFormatted2[0]}";
             } else if (stringFormatted2.Length == 3)
             {
-                stringToReturn += $" and a {getScoopName(stringFormatted2[1])}, {getScoopName(stringFormatted2[2])} on a {stringFormatted2[0]}";
+                stringToReturn += $" as well as a {getScoopName(stringFormatted2[1])} and a {getScoopName(stringFormatted2[2])} on a {stringFormatted2[0]}";
             } else if (stringFormatted2.Length == 4)
             {
-                stringToReturn += $" and a {getScoopName(stringFormatted2[1])}, {getScoopName(stringFormatted2[2])} and a {getScoopName(stringFormatted2[3])} on a {stringFormatted2[0]}";
+                stringToReturn += $" as well as a {getScoopName(stringFormatted2[1])}, {getScoopName(stringFormatted2[2])} and a {getScoopName(stringFormatted2[3])} on a {stringFormatted2[0]}";
             } 
 
             return stringToReturn;
@@ -291,9 +312,11 @@ public class Customer
         switch (scoop)
         {
             case "gelatoa":
-                return "mint scoop";
+                return "mint chocolate scoop";
             case "gelatob":
                 return "strawberry scoop";
+            case "gelatoc":
+                return "vanilla scoop";
             default:
                 return scoop;
         }

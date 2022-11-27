@@ -11,4 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/testata.unity
     guid: 0b9ca276476a43641aa44fb4064d562b
+  - enabled: 1
+    path: Assets/Scenes/testata 2.unity
+    guid: 8bbac2f4f14950e429624805574fe017
+  - enabled: 1
+    path: Assets/Scenes/Victory Menu.unity
+    guid: 9171b6e03ceed1f49967c66a71fa1b8e
   m_configObjects: {}

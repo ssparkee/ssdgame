@@ -22,6 +22,7 @@ public class TextDisplay : MonoBehaviour
         textGui = textObject.GetComponent<TextMeshProUGUI>();
         panelTransform = panelObject.GetComponent<RectTransform>();
 
+        textGui.text = "";
         //displayLine("Hey can i I get a wafer cone with red scoop and green scoop Hey can i I get a wafer cone with red scoop and green scoop Hey can i I get a wafer cone with red scoop and green scoop");
     }
 
@@ -31,25 +32,29 @@ public class TextDisplay : MonoBehaviour
         
     }
 
-    public void displayLine(string line, double interval = -1)
+    public void displayLine(string line, double interval = -1, float waitAfter = -1)
     {
         if (interval == -1)
         {
             interval = displayInterval;
+        } 
+        if (waitAfter == -1)
+        {
+            waitAfter = 1;
         }
         
 
-        StartCoroutine(waitForDisplay(line, (float)interval));
+        StartCoroutine(waitForDisplay(line, (float)interval, waitAfter));
     }
 
-    IEnumerator waitForDisplay(string line, float interval)
+    IEnumerator waitForDisplay(string line, float interval, float waitAfter)
     {
         if (displayingText)
         {
             yield return new WaitUntil(notDisplaying);
         }
 
-        StartCoroutine(display(line, interval));
+        StartCoroutine(display(line, interval, waitAfter));
         
 
         yield break;
@@ -78,12 +83,12 @@ public class TextDisplay : MonoBehaviour
     {
         foreach (string line in lines)
         {
-            StartCoroutine(display(line, interval:interval));
+            StartCoroutine(display(line, interval:interval, 1));
             yield return new WaitForSeconds(timeBetweenLines);
         }
         yield break;
     }
-    IEnumerator display(string line, float interval)
+    IEnumerator display(string line, float interval, float waitAfter)
     {
         displayingText = true;
         textGui.text = "";
@@ -99,7 +104,7 @@ public class TextDisplay : MonoBehaviour
             textGui.text += character;
             yield return new WaitForSeconds(interval);
         }
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(waitAfter);
 
         if (textGui.text.StartsWith("Thanks") || textGui.text.StartsWith("What the"))
         {

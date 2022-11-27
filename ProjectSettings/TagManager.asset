@@ -19,6 +19,7 @@ TagManager:
   - GelatoButton
   - GelatoTubC
   - GelatoC
+  - BenchCheck
   layers:
   - Default
   - TransparentFX

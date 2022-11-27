@@ -12,10 +12,12 @@ public class PlayerInteractions : MonoBehaviour
     HeldItem heldItem;
     ConeSquare coneSquare;
     public GameObject coneSquareMain;
+    public bool enteredBench;
 
     // Start is called before the first frame update
     void Start()
     {
+        enteredBench = false;
         heldItem = GetComponent<HeldItem>();
         coneSquare = coneSquareMain.GetComponent<ConeSquare>();
     }
@@ -231,6 +233,10 @@ public class PlayerInteractions : MonoBehaviour
             if (collision.gameObject.CompareTag("Black"))
             {
                 //Debug.Log("You are dead");
+            }
+            if (collision.gameObject.CompareTag("BenchCheck"))
+            {
+                enteredBench = true;
             }
         }
     }

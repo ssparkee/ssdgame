@@ -32,7 +32,7 @@ public class BlackController : MonoBehaviour
 
     Vector3 randomStartPoint()
     {
-        int i = Random.Range(1,2);
+        int i = Random.Range(1,3);
         
         switch(i)
         {

@@ -269,6 +269,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gelatosToMake: []
+  customerManagerGameObject: {fileID: 0}
 --- !u!1 &50605094
 GameObject:
   m_ObjectHideFlags: 0
@@ -776,8 +777,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textObject: {fileID: 1724443799}
+  panelObject: {fileID: 0}
   displayInterval: 0.05
   lineInterval: 0.5
+  displayingText: 0
 --- !u!4 &270579302
 Transform:
   m_ObjectHideFlags: 0
