@@ -8,16 +8,21 @@ public class CustomerManager : MonoBehaviour
     public List<Customer> currentCustomers = new List<Customer>();
     public GameObject customerPrefab;
     public int customerChance = 700;
-    public GameObject textManager; //TODO: ASSIGN THIS
+    public GameObject textManager;
+    public GameObject player;
     TextDisplay textdisplay;
     public GameObject moneyManagerGameObject;
     MoneyManager moneyManager;
-
+    AudioSource audioSource;
+    public AudioClip customerTalking;
+    public AudioClip customerHappy;
+    public AudioClip customerAngry;
     // Start is called before the first frame update
     void Start()
     {
         textdisplay = textManager.GetComponent<TextDisplay>();
         moneyManager = moneyManagerGameObject.GetComponent<MoneyManager>();
+        audioSource = player.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -48,7 +53,7 @@ public class CustomerManager : MonoBehaviour
             return;
         }
         Customer i = new Customer();
-        i.setup(generateGelato(onlyOne), null, Instantiate(customerPrefab, transform.position, Quaternion.identity), textdisplay);
+        i.setup(generateGelato(onlyOne), null, Instantiate(customerPrefab, transform.position, Quaternion.identity), textdisplay, audioSource, customerTalking);
         i.customerGameObject.transform.parent = transform;
         currentCustomers.Add(i);
 
@@ -60,11 +65,13 @@ public class CustomerManager : MonoBehaviour
         if (correctIceCream) //TODO: good job bad job
         {
             //good job
+            audioSource.PlayOneShot(customerHappy);
             textdisplay.displayLine("Thanks!");
             moneyManager.addMoney();
 
         } else {
             //bad job
+            audioSource.PlayOneShot(customerAngry);
             textdisplay.displayLine("What the hell? This isn't what I asked for!");
         }
         currentCustomers[0].leaveStore();
@@ -215,14 +222,18 @@ public class Customer
     public bool hasOrdered;
     public int positionInQueue;
     TextDisplay textdisplay;
+    AudioSource audioSource;
+    AudioClip customerTalking;
 
-    public void setup(List<string> gelato, Texture faceTexture, GameObject customer, TextDisplay text)
+    public void setup(List<string> gelato, Texture faceTexture, GameObject customer, TextDisplay text, AudioSource source, AudioClip clip)
     {
         gelatoString = gelato;
         customerGameObject = customer;
         textdisplay = text;
         currentlyMoving = false;
         hasOrdered = false;
+        audioSource = source;
+        customerTalking = clip;
 
         customerGameObject.transform.RotateAround(customerGameObject.transform.position, customerGameObject.transform.up, 180f);
 
@@ -243,6 +254,7 @@ public class Customer
 
             if (!hasOrdered && (target == new Vector3(-29.82f, 0, -822f)))
             {
+                audioSource.PlayOneShot(customerTalking);
                 textdisplay.displayLine(createString(gelatoString));
                 hasOrdered = true;
             }

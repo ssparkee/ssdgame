@@ -1292,7 +1292,11 @@ MonoBehaviour:
   customerPrefab: {fileID: 8346979441304117913, guid: fec79bd48da58dc498d4240c6068ba2c, type: 3}
   customerChance: 2000
   textManager: {fileID: 441411011}
+  player: {fileID: 8276497534130670127}
   moneyManagerGameObject: {fileID: 2013100455}
+  customerTalking: {fileID: 8300000, guid: ad17795e4830d904886d1f4a244a8f8b, type: 3}
+  customerHappy: {fileID: 8300000, guid: 73e53c0cba9149847b474b9cfd687713, type: 3}
+  customerAngry: {fileID: 8300000, guid: b0feb4a365a71554db83b874e5ee9776, type: 3}
 --- !u!1001 &430515764
 PrefabInstance:
   m_ObjectHideFlags: 0
